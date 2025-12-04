@@ -99,6 +99,7 @@
   .brand {
     font-size: 1.1rem;
     margin: 0;
+    cursor: pointer;
   }
   .pantry-name {
     display: flex;
@@ -141,12 +142,11 @@
   }
   .actions button {
     margin-left: 0.6rem;
-    background: transparent;
-    color: #ddd;
+    background: #fff;
+    color: #1f2937;
     border: 1px solid rgba(255,255,255,0.06);
     padding: 0.45rem 0.8rem;
   }
-  .actions button.active,
   .actions button:hover {
     color: #111;
     background: #ffd166;

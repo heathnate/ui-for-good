@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import { categoryHash } from './stores.js'
+  import { categoryHash, canEdit } from './stores.js'
   export let item
   const dispatch = createEventDispatcher()
   
@@ -18,9 +18,11 @@
       <div class="notes">{item.notes}</div>
     {/if}
   </div>
+  {#if canEdit}
   <div class="card-actions">
     <button on:click|stopPropagation={() => dispatch('edit', { item })}>Edit</button>
   </div>
+  {/if}
 </article>
 
 <style>

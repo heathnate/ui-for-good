@@ -13,7 +13,6 @@
 
   let category = "All";
   let query = "";
-  let onlyAvailable = false;
   // base comes from global filteredItems (header search and category filter applied)
   let base = [];
   const unsubscribe = filteredItems.subscribe((v) => (base = v));
@@ -27,7 +26,7 @@
     }
   });
 
-  $: filtered = base.filter((i) => (onlyAvailable ? i.quantity > 0 : true));
+  $: filtered = base.filter((i) => true);
 
   function clearFilters() {
     selectedCategory.set("");
@@ -69,11 +68,6 @@
         </select>
       </label>
     </div>
-    <div class="right">
-      <label class="inline"
-        ><input type="checkbox" bind:checked={onlyAvailable} /> Only available</label
-      >
-    </div>
   </div>
 
   <div class="grid">
@@ -104,11 +98,14 @@
     padding: 0.4rem 0.8rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background: #fff;
+    background: #1f2937;
     cursor: pointer;
   }
   .clear-btn:hover {
     background: #f5f5f5;
+    color: #1f2937;
+    background: #ffd166;
+    border-color: #ffd166;
   }
   .filter-info {
     color: #666;
