@@ -6,6 +6,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 45,
     notes: "Red Delicious",
+    image: "apples.jpg",
   },
   {
     id: 2,
@@ -13,6 +14,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 60,
     notes: "Fresh bunches",
+    image: "bananas.jpg",
   },
   {
     id: 3,
@@ -20,6 +22,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 30,
     notes: "1lb bags",
+    image: "carrots.jpg",
   },
   {
     id: 4,
@@ -27,6 +30,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 50,
     notes: "Russet, 5lb bags",
+    image: "potatoes.jpg",
   },
   {
     id: 5,
@@ -34,6 +38,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 25,
     notes: "Roma tomatoes",
+    image: "tomatoes.jpg",
   },
   {
     id: 6,
@@ -41,6 +46,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 20,
     notes: "Iceberg lettuce heads",
+    image: "lettuce.jpg",
   },
   {
     id: 7,
@@ -48,6 +54,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 35,
     notes: "Yellow onions, 2lb bags",
+    image: "onions.jpg",
   },
   {
     id: 8,
@@ -55,6 +62,7 @@ export const defaultItems = [
     category: "produce",
     quantity: 18,
     notes: "Mixed colors",
+    image: "bell-peppers.jpg",
   },
 
   // Meat (8+ items)
@@ -64,6 +72,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 15,
     notes: "1lb frozen packages",
+    image: "ground-beef.jpg",
   },
   {
     id: 10,
@@ -71,6 +80,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 20,
     notes: "Boneless, frozen",
+    image: "chicken-breast.jpg",
   },
   {
     id: 11,
@@ -78,6 +88,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 12,
     notes: "Family packs, frozen",
+    image: "pork-chops.jpg",
   },
   {
     id: 12,
@@ -85,6 +96,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 8,
     notes: "Whole frozen turkey",
+    image: "turkey.jpg",
   },
   {
     id: 13,
@@ -92,6 +104,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 10,
     notes: "1lb packages",
+    image: "bacon.jpg",
   },
   {
     id: 14,
@@ -99,6 +112,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 25,
     notes: "Beef franks",
+    image: "hot-dogs.jpg",
   },
   {
     id: 15,
@@ -106,6 +120,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 14,
     notes: "Lean, 1lb packages",
+    image: "ground-turkey.jpg",
   },
   {
     id: 16,
@@ -113,6 +128,7 @@ export const defaultItems = [
     category: "meat",
     quantity: 18,
     notes: "Breakfast sausage",
+    image: "sausage-links.jpg",
   },
 
   // Dairy (8+ items)
@@ -122,6 +138,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 30,
     notes: "Whole milk, 1 gallon",
+    image: "milk.jpg",
   },
   {
     id: 18,
@@ -129,6 +146,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 40,
     notes: "Grade A large, dozen",
+    image: "eggs.jpg",
   },
   {
     id: 19,
@@ -136,6 +154,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 22,
     notes: "Shredded, 8oz",
+    image: "cheddar.jpg",
   },
   {
     id: 20,
@@ -143,6 +162,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 35,
     notes: "Assorted flavors",
+    image: "yogurt.jpg",
   },
   {
     id: 21,
@@ -150,6 +170,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 15,
     notes: "Salted, 1lb",
+    image: "butter.jpg",
   },
   {
     id: 22,
@@ -157,6 +178,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 12,
     notes: "16oz containers",
+    image: "sour-cream.jpg",
   },
   {
     id: 23,
@@ -164,6 +186,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 18,
     notes: "8oz blocks",
+    image: "cream-cheese.jpg",
   },
   {
     id: 24,
@@ -171,6 +194,7 @@ export const defaultItems = [
     category: "dairy",
     quantity: 20,
     notes: "Shredded, 8oz",
+    image: "mozzarella.jpg",
   },
 
   // Canned Goods (8+ items)
@@ -180,6 +204,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 50,
     notes: "Black beans, 15oz",
+    image: "black-beans.jpg",
   },
   {
     id: 26,
@@ -187,6 +212,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 45,
     notes: "Whole kernel, 15oz",
+    image: "corn.jpg",
   },
   {
     id: 27,
@@ -194,6 +220,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 40,
     notes: "15oz cans",
+    image: "tomato-sauce.jpg",
   },
   {
     id: 28,
@@ -201,6 +228,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 35,
     notes: "Chunk light, 5oz",
+    image: "canned-tuna.jpg",
   },
   {
     id: 29,
@@ -208,6 +236,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 30,
     notes: "Condensed, 10.5oz",
+    image: "chicken-soup.jpg",
   },
   {
     id: 30,
@@ -215,6 +244,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 28,
     notes: "Sweet peas, 15oz",
+    image: "canned-peas.jpg",
   },
   {
     id: 31,
@@ -222,6 +252,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 25,
     notes: "In light syrup, 15oz",
+    image: "canned-peaches.jpg",
   },
   {
     id: 32,
@@ -229,6 +260,7 @@ export const defaultItems = [
     category: "canned",
     quantity: 32,
     notes: "6oz cans",
+    image: "tomato-paste.jpg",
   },
 
   // Grains & Pasta (8+ items)
@@ -238,13 +270,15 @@ export const defaultItems = [
     category: "grains",
     quantity: 25,
     notes: "Long grain, 2lb bags",
+    image: "white-rice.jpg",
   },
   {
     id: 34,
-    name: "Pasta",
+    name: "Spaghetti",
     category: "grains",
     quantity: 40,
-    notes: "Spaghetti, 1lb boxes",
+    notes: "1lb boxes",
+    image: "spaghetti.jpg",
   },
   {
     id: 35,
@@ -252,6 +286,7 @@ export const defaultItems = [
     category: "grains",
     quantity: 22,
     notes: "Quick oats, 18oz",
+    image: "oatmeal.jpg",
   },
   {
     id: 36,
@@ -259,6 +294,7 @@ export const defaultItems = [
     category: "grains",
     quantity: 30,
     notes: "Assorted varieties",
+    image: "cereal.jpg",
   },
   {
     id: 37,
@@ -266,6 +302,7 @@ export const defaultItems = [
     category: "grains",
     quantity: 35,
     notes: "Whole wheat loaves",
+    image: "bread.jpg",
   },
   {
     id: 38,
@@ -273,6 +310,7 @@ export const defaultItems = [
     category: "grains",
     quantity: 28,
     notes: "Elbow pasta, 1lb",
+    image: "macaroni.jpg",
   },
   {
     id: 39,
@@ -280,6 +318,7 @@ export const defaultItems = [
     category: "grains",
     quantity: 15,
     notes: "Organic, 1lb bags",
+    image: "quinoa.jpg",
   },
   {
     id: 40,
@@ -287,6 +326,7 @@ export const defaultItems = [
     category: "grains",
     quantity: 18,
     notes: "2lb bags",
+    image: "brown-rice.jpg",
   },
 
   // Bakery (8+ items)

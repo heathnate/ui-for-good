@@ -5,10 +5,13 @@
   const dispatch = createEventDispatcher()
   
   $: displayCategory = categoryHash[item.category] || item.category
+  $: imagePath = `url("/public/items/${item.image}")` 
 </script>
 
 <article class="card" role="button" tabindex="0" on:click={() => window.location.hash = '#/item/' + item.id}>
-  <div class="card-body">
+    <div class="card-image" style="background-image: {imagePath}">
+    </div>
+    <div class="card-body">
     <h3 class="item-name">{item.name}</h3>
     <div class="meta">
       <span class="category">{displayCategory}</span>
@@ -35,6 +38,12 @@
     justify-content: space-between;
     background: #fff;
     color: #111;
+  }
+  .card-image {
+    height: 220px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .item-name { margin: 0 0 0.4rem 0 }
   .meta { display:flex; gap:0.6rem; font-size:0.9rem; color:#555 }

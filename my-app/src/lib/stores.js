@@ -89,8 +89,6 @@ export const filteredItems = derived(
   ([$items, $search, $category]) => {
     let filtered = $items;
 
-    console.log(filtered);
-
     // Filter by category first
     const cat = ($category || "").toString().trim().toLowerCase();
     if (cat && cat !== "all") {
