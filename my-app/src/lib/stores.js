@@ -59,3 +59,25 @@ export const categories = derived(itemsStore, ($items) => {
   const set = new Set($items.map((i) => i.category).filter(Boolean));
   return ["All", ...Array.from(set)];
 });
+
+// Global search query (header search)
+export const searchQuery = writable("");
+
+// Derived filtered items used across the site (search applies to name, notes, category)
+export const filteredItems = derived(
+  [itemsStore, searchQuery],
+  ([$items, $search]) => {
+    const q = ($search || "").toString().trim().toLowerCase();
+    if (!q) return $items;
+    return $items.filter((i) => {
+      const hay = (
+        (i.name || "") +
+        " " +
+        (i.notes || "") +
+        " " +
+        (i.category || "")
+      ).toLowerCase();
+      return hay.includes(q);
+    });
+  }
+);

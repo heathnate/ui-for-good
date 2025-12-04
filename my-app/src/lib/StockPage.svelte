@@ -1,19 +1,18 @@
 <script>
-  import { itemsStore, categories } from './stores.js'
+  import { itemsStore, categories, filteredItems } from './stores.js'
   import ItemCard from './ItemCard.svelte'
   import { onMount } from 'svelte'
 
   let category = 'All'
   let query = ''
   let onlyAvailable = false
+  // base comes from global filteredItems (header search applied)
+  let base = []
+  const unsubscribe = filteredItems.subscribe((v) => (base = v))
 
-  let items = []
-  const unsubscribe = itemsStore.subscribe((v) => (items = v))
-
-  $: filtered = items
+  $: filtered = base
     .filter((i) => (category === 'All' ? true : i.category === category))
     .filter((i) => (onlyAvailable ? i.quantity > 0 : true))
-    .filter((i) => i.name.toLowerCase().includes(query.toLowerCase()))
 
   onMount(() => {
     return () => unsubscribe()

@@ -4,7 +4,7 @@
   const dispatch = createEventDispatcher()
 </script>
 
-<article class="card">
+<article class="card" role="button" tabindex="0" on:click={() => window.location.hash = '#/item/' + item.id}>
   <div class="card-body">
     <h3 class="item-name">{item.name}</h3>
     <div class="meta">
@@ -16,7 +16,7 @@
     {/if}
   </div>
   <div class="card-actions">
-    <button on:click={() => dispatch('edit', { item })}>Edit</button>
+    <button on:click|stopPropagation={() => dispatch('edit', { item })}>Edit</button>
   </div>
 </article>
 
