@@ -5,6 +5,7 @@
   let q = ''
   let showDropdown = false
   let inputEl
+  let pantryDetailsOpen = false
 
   // sync local q with global store
   $: searchQuery.set(q)
@@ -22,11 +23,29 @@
   function openItem(id) {
     goTo('#/item/' + id)
   }
+
+  function togglePantryDetails() {
+    pantryDetailsOpen = !pantryDetailsOpen
+  }
 </script>
 
 <header class="nav">
   <div class="nav-inner">
-    <h1 class="brand" on:click={() => goTo('#/')}>PantryPeeker</h1>
+    <div class="left">
+        <h1 class="brand" on:click={() => goTo('#/')}>PantryPeeker</h1>
+        <div class="pantry-name" on:click={togglePantryDetails} role="button" tabindex="0">
+            <div>Heath Community Pantry</div>
+            <span class="arrow" class:open={pantryDetailsOpen}>▼</span>
+        </div>
+        {#if pantryDetailsOpen}
+          <div class="pantry-details">
+              <div>Pantry Details</div>
+              <div>2600 Clifton Ave, Cincinnati, OH 45221</div>
+              <div>Open: Mon-Fri 9am - 5pm</div>
+              <div>(513) 556-6000</div>
+          </div>
+        {/if}
+    </div>
     <div class="right">
       <nav class="actions">
         <button on:click={() => goTo('#/')}>Stock</button>
@@ -66,15 +85,59 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
   .nav-inner {
-    max-width: 1200px;
     margin: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+  .left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
   .brand {
     font-size: 1.1rem;
     margin: 0;
+  }
+  .pantry-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .pantry-name:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  .arrow {
+    font-size: 0.7em;
+    transition: transform 0.2s;
+  }
+  .arrow.open {
+    transform: rotate(180deg);
+  }
+  .pantry-details {
+    position: absolute;
+    top: 100%;
+    left: 8.8rem;
+    background: #2d3748;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    z-index: 100;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .pantry-details > div:first-child {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .left {
+    position: relative;
   }
   .actions button {
     margin-left: 0.6rem;
