@@ -82,7 +82,7 @@ button:focus-visible {
   min-height: 100vh;
 }
 main.container {
-  padding: 1.25rem;
+  /* padding: 1.25rem; */
 }
 
 /* Cards grid default readable look */

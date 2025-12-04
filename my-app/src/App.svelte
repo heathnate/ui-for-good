@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import NavBar from './lib/NavBar.svelte'
   import StockPage from './lib/StockPage.svelte'
+  import GreetingPage from './lib/GreetingPage.svelte';
   import EmployeeView from './lib/EmployeeView.svelte'
   import ItemDetail from './lib/ItemDetail.svelte'
 
@@ -37,15 +38,12 @@
     {:else if route === '/employee'}
       <EmployeeView />
     {:else}
-      <StockPage />
+      <GreetingPage />
     {/if}
   </main>
 </div>
 
 <style>
   .container {
-    max-width: 1200px;
-    margin: 1.5rem auto;
-    padding: 1rem;
   }
 </style>

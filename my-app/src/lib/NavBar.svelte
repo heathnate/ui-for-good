@@ -1,6 +1,5 @@
 <script>
   import { searchQuery, filteredItems } from './stores.js'
-  import { writable } from 'svelte/store'
 
   // local input model
   let q = ''
