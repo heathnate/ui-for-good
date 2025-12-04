@@ -1,14 +1,17 @@
 <script>
   import { createEventDispatcher } from 'svelte'
+  import { categoryHash } from './stores.js'
   export let item
   const dispatch = createEventDispatcher()
+  
+  $: displayCategory = categoryHash[item.category] || item.category
 </script>
 
 <article class="card" role="button" tabindex="0" on:click={() => window.location.hash = '#/item/' + item.id}>
   <div class="card-body">
     <h3 class="item-name">{item.name}</h3>
     <div class="meta">
-      <span class="category">{item.category}</span>
+      <span class="category">{displayCategory}</span>
       <span class="qty">Qty: {item.quantity}</span>
     </div>
     {#if item.notes}

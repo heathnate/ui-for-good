@@ -1,17 +1,13 @@
 <script>
-  import { itemsStore } from './stores.js'
-  import { onDestroy } from 'svelte'
-  export let id
+  import { items } from './stores.js';
+  export let id;
 
-  let items = []
-  const unsub = itemsStore.subscribe((v) => (items = v))
-  onDestroy(() => unsub())
-
-  $: item = items.find((i) => String(i.id) === String(id))
+  // find item by id (convert to string for comparison since URLs pass strings)
+  $: item = $items.find((i) => String(i.id) === String(id));
 
   function goBack() {
     // go back to stock
-    window.location.hash = '#/'
+    window.location.hash = '#/';
   }
 </script>
 
@@ -32,5 +28,7 @@
 {/if}
 
 <style>
-  .detail { background:#fff; padding:1rem; border-radius:8px }
+  .detail { background:#fff; padding:1rem; border-radius:8px; }
+  button { padding: 0.5rem 1rem; border: 1px solid #ddd; border-radius: 4px; background: #fff; cursor: pointer; }
+  button:hover { background: #f5f5f5; }
 </style>

@@ -1,8 +1,9 @@
 import { writable, derived } from "svelte/store";
+import { defaultItems } from "./sample-data.js";
 
 const STORAGE_KEY = "pantry_items_v1";
 
-const categoryHash = {
+export const categoryHash = {
   all: "All",
   produce: "Produce",
   meat: "Meat",
@@ -17,18 +18,6 @@ const categoryHash = {
   baby: "Baby Products",
   pets: "Pet Supplies",
 };
-
-const defaultItems = [
-  {
-    id: 1,
-    name: "Canned Beans",
-    category: "Canned Goods",
-    quantity: 24,
-    notes: "",
-  },
-  { id: 2, name: "Rice 1kg", category: "Grains", quantity: 10, notes: "" },
-  { id: 3, name: "Peanut Butter", category: "Spreads", quantity: 5, notes: "" },
-];
 
 function load() {
   try {
@@ -73,8 +62,11 @@ export const itemsStore = createStore();
 
 export const categories = derived(itemsStore, ($items) => {
   const set = new Set($items.map((i) => i.category).filter(Boolean));
+  console.log("Derived categories:", set);
   return ["All", ...Array.from(set)];
 });
+
+export const items = writable(defaultItems);
 
 // Global search query (header search)
 export const searchQuery = writable("");
@@ -91,13 +83,16 @@ export const selectedCategoryDisplayName = derived(
 
 // Derived filtered items used across the site (search applies to name, notes, category)
 export const filteredItems = derived(
-  [itemsStore, searchQuery, selectedCategory],
+  [items, searchQuery, selectedCategory],
   ([$items, $search, $category]) => {
     let filtered = $items;
 
+    console.log(filtered);
+
     // Filter by category first
     const cat = ($category || "").toString().trim().toLowerCase();
-    if (cat) {
+    if (cat && cat !== "all") {
+      // Match against the lowercase category key in the data
       filtered = filtered.filter(
         (i) => (i.category || "").toLowerCase() === cat
       );
@@ -106,16 +101,9 @@ export const filteredItems = derived(
     // Then filter by search query
     const q = ($search || "").toString().trim().toLowerCase();
     if (q) {
-      filtered = filtered.filter((i) => {
-        const hay = (
-          (i.name || "") +
-          " " +
-          (i.notes || "") +
-          " " +
-          (i.category || "")
-        ).toLowerCase();
-        return hay.includes(q);
-      });
+      filtered = filtered.filter((i) =>
+        (i.name + " " + (i.notes || "")).toLowerCase().includes(q)
+      );
     }
 
     return filtered;

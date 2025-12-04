@@ -6,6 +6,7 @@
     selectedCategory,
     selectedCategoryDisplayName,
     searchQuery,
+    categoryHash,
   } from "./stores.js";
   import ItemCard from "./ItemCard.svelte";
   import { onMount } from "svelte";
@@ -17,25 +18,21 @@
   let base = [];
   const unsubscribe = filteredItems.subscribe((v) => (base = v));
 
-  // Sync local category with selectedCategory store
+  // Sync local category dropdown with selectedCategory from URL
   const unsubCategory = selectedCategory.subscribe((cat) => {
     if (cat) {
-      // Find matching category in the list (case-insensitive)
-      const match = $categories.find(
-        (c) => c.toLowerCase() === cat.toLowerCase()
-      );
-      category = match || "All";
+      category = cat;
+    } else {
+      category = "all";
     }
   });
 
-  $: filtered = base
-    .filter((i) => (category === "All" ? true : i.category === category))
-    .filter((i) => (onlyAvailable ? i.quantity > 0 : true));
+  $: filtered = base.filter((i) => (onlyAvailable ? i.quantity > 0 : true));
 
   function clearFilters() {
     selectedCategory.set("");
     searchQuery.set("");
-    category = "All";
+    category = "all";
     window.location.hash = "#/stock";
   }
 
@@ -65,15 +62,11 @@
     <div class="left">
       <label
         >Category
-        <select bind:value={category}>
-          {#each $categories as c}
-            <option value={c}>{c}</option>
+        <select bind:value={category} on:change={() => selectedCategory.set(category)}>
+          {#each Object.keys(categoryHash) as catKey}
+            <option value={catKey}>{categoryHash[catKey]}</option>
           {/each}
         </select>
-      </label>
-      <label
-        >Search
-        <input placeholder="Search items" bind:value={query} />
       </label>
     </div>
     <div class="right">
