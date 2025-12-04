@@ -2,6 +2,22 @@ import { writable, derived } from "svelte/store";
 
 const STORAGE_KEY = "pantry_items_v1";
 
+const categoryHash = {
+  all: "All",
+  produce: "Produce",
+  meat: "Meat",
+  dairy: "Dairy",
+  canned: "Canned Goods",
+  grains: "Grains & Pasta",
+  bakery: "Bakery",
+  frozen: "Frozen Foods",
+  beverages: "Beverages",
+  "personal-care": "Personal Care",
+  household: "Household Supplies",
+  baby: "Baby Products",
+  pets: "Pet Supplies",
+};
+
 const defaultItems = [
   {
     id: 1,
@@ -63,21 +79,45 @@ export const categories = derived(itemsStore, ($items) => {
 // Global search query (header search)
 export const searchQuery = writable("");
 
+// Global selected category filter
+export const selectedCategory = writable("");
+
+export const selectedCategoryDisplayName = derived(
+  [selectedCategory],
+  ([$selectedCategory]) => {
+    return categoryHash[$selectedCategory];
+  }
+);
+
 // Derived filtered items used across the site (search applies to name, notes, category)
 export const filteredItems = derived(
-  [itemsStore, searchQuery],
-  ([$items, $search]) => {
+  [itemsStore, searchQuery, selectedCategory],
+  ([$items, $search, $category]) => {
+    let filtered = $items;
+
+    // Filter by category first
+    const cat = ($category || "").toString().trim().toLowerCase();
+    if (cat) {
+      filtered = filtered.filter(
+        (i) => (i.category || "").toLowerCase() === cat
+      );
+    }
+
+    // Then filter by search query
     const q = ($search || "").toString().trim().toLowerCase();
-    if (!q) return $items;
-    return $items.filter((i) => {
-      const hay = (
-        (i.name || "") +
-        " " +
-        (i.notes || "") +
-        " " +
-        (i.category || "")
-      ).toLowerCase();
-      return hay.includes(q);
-    });
+    if (q) {
+      filtered = filtered.filter((i) => {
+        const hay = (
+          (i.name || "") +
+          " " +
+          (i.notes || "") +
+          " " +
+          (i.category || "")
+        ).toLowerCase();
+        return hay.includes(q);
+      });
+    }
+
+    return filtered;
   }
 );

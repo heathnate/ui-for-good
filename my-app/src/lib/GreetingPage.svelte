@@ -2,18 +2,18 @@
   import CategoryCard from './CategoryCard.svelte';
 
   const categories = [
-      { image: '/produce.jpg', category: 'Produce', route: '/stock?cat=produce' },
-      { image: '/meat.jpg', category: 'Meat', route: '/stock?cat=meat' },
-      { image: '/dairy.jpg', category: 'Dairy', route: '/stock?cat=dairy' },
-      { image: '/canned.jpg', category: 'Canned Goods', route: '/stock?cat=canned' },
-      { image: '/grains.jpg', category: 'Grains & Pasta', route: '/stock?cat=grains' },
-      { image: '/bakery.jpg', category: 'Bakery', route: '/stock?cat=bakery' },
-      { image: '/frozen.jpg', category: 'Frozen Foods', route: '/stock?cat=frozen' },
-      { image: '/beverages.jpg', category: 'Beverages', route: '/stock?cat=beverages' },
-      { image: '/personal-care.jpg', category: 'Personal Care', route: '/stock?cat=personal-care' },
-      { image: '/household.jpg', category: 'Household Supplies', route: '/stock?cat=household' },
-      { image: '/baby.jpg', category: 'Baby Products', route: '/stock?cat=baby' },
-      { image: '/pets.jpg', category: 'Pet Supplies', route: '/stock?cat=pets' },
+      { image: '/produce.jpg', category: 'Produce', route: '/stock?category=produce' },
+      { image: '/meat.jpg', category: 'Meat', route: '/stock?category=meat' },
+      { image: '/dairy.jpg', category: 'Dairy', route: '/stock?category=dairy' },
+      { image: '/canned.jpg', category: 'Canned Goods', route: '/stock?category=canned' },
+      { image: '/grains.jpg', category: 'Grains & Pasta', route: '/stock?category=grains' },
+      { image: '/bakery.jpg', category: 'Bakery', route: '/stock?category=bakery' },
+      { image: '/frozen.jpg', category: 'Frozen Foods', route: '/stock?category=frozen' },
+      { image: '/beverages.jpg', category: 'Beverages', route: '/stock?category=beverages' },
+      { image: '/personal-care.jpg', category: 'Personal Care', route: '/stock?category=personal-care' },
+      { image: '/household.jpg', category: 'Household Supplies', route: '/stock?category=household' },
+      { image: '/baby.jpg', category: 'Baby Products', route: '/stock?category=baby' },
+      { image: '/pets.jpg', category: 'Pet Supplies', route: '/stock?category=pets' },
   ];
 </script>
 

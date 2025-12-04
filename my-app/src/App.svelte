@@ -5,6 +5,7 @@
   import GreetingPage from './lib/GreetingPage.svelte';
   import EmployeeView from './lib/EmployeeView.svelte'
   import ItemDetail from './lib/ItemDetail.svelte'
+  import { selectedCategory, searchQuery } from './lib/stores.js'
 
   let route = '/'
   let params = {}
@@ -14,12 +15,26 @@
     if (h.startsWith('/item/')) {
       route = '/item'
       params.id = h.split('/')[2]
+      selectedCategory.set('')
     } else if (h.startsWith('/employee')) {
       route = '/employee'
       params = {}
+      selectedCategory.set('')
+    } else if (h.startsWith('/stock')) {
+      route = '/stock'
+      params = {}
+      // Parse category from query string
+      const queryMatch = h.match(/\?category=([^&]+)/)
+      if (queryMatch) {
+        selectedCategory.set(decodeURIComponent(queryMatch[1]))
+      } else {
+        selectedCategory.set('')
+      }
     } else {
       route = '/'
       params = {}
+      selectedCategory.set('')
+      searchQuery.set('')
     }
   }
 
@@ -37,6 +52,8 @@
       <ItemDetail id={params.id} />
     {:else if route === '/employee'}
       <EmployeeView />
+    {:else if route === '/stock'}
+      <StockPage />
     {:else}
       <GreetingPage />
     {/if}
@@ -44,6 +61,4 @@
 </div>
 
 <style>
-  .container {
-  }
 </style>

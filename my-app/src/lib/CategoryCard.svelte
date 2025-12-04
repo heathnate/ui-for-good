@@ -8,7 +8,7 @@
   $: bg = `url("${image}")`;
 </script>
 
-<a class="category-card" href={href} aria-label={`Open ${category}`}>
+<a class="category-card" href={href}>
   <div class="image" style="background-image: {bg}"></div>
   <div class="name">
     <h3>{category}</h3>
