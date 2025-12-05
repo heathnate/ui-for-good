@@ -48,7 +48,7 @@
     </div>
     <div class="right">
       <nav class="actions">
-        <button on:click={() => goTo('#/')}>Stock</button>
+        <button on:click={() => goTo('#/stock')}>Stock</button>
         <button on:click={() => goTo('#/employee')}>Employee</button>
       </nav>
 

@@ -8,7 +8,7 @@
   $: imagePath = `url("/items/${item.image}")` 
 </script>
 
-<article class="card" role="button" tabindex="0" on:click={() => window.location.hash = '#/item/' + item.id}>
+<article class="card" role="button" tabindex="0">
     <div class="card-image" style="background-image: {imagePath}">
     </div>
     <div class="card-body">
