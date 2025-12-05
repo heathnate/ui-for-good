@@ -7,6 +7,7 @@
     selectedCategoryDisplayName,
     searchQuery,
     categoryHash,
+    employee
   } from "./stores.js";
   import ItemCard from "./ItemCard.svelte";
   import { onMount } from "svelte";
@@ -27,6 +28,18 @@
   });
 
   $: filtered = base.filter((i) => true);
+
+  $: canEdit = $employee;
+
+  function handleEdit(event) {
+    const item = event.detail.item;
+    if (canEdit) {
+      // Route to item detail page
+      window.location.hash = `#/item/${item.id}`;
+    } else {
+      alert("Employee edit only: switch to Employee view to edit.");
+    }
+  }
 
   function clearFilters() {
     selectedCategory.set("");
@@ -77,8 +90,7 @@
     {#each filtered as it (it.id)}
       <ItemCard
         item={it}
-        on:edit={(e) =>
-          alert("Employee edit only: switch to Employee view to edit.")}
+        on:edit={handleEdit}
       />
     {/each}
   </div>

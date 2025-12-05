@@ -94,7 +94,7 @@
         <p>Employee mode active</p>
         {:else}
         <button on:click={toggleEmployeeMode}>Switch to Employee View</button>
-        <p>Customer view</p>
+        <p>Customer mode active</p>
         {/if}
         </div>
       </nav>
