@@ -298,11 +298,11 @@ export const defaultItems = [
   },
   {
     id: 37,
-    name: "Bread",
+    name: "Penne",
     category: "grains",
     quantity: 35,
-    notes: "Whole wheat loaves",
-    image: "bread.jpg",
+    notes: "1lb boxes",
+    image: "penne.jpg",
   },
   {
     id: 38,
@@ -336,6 +336,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 30,
     notes: "White bread loaves",
+    image: "white-bread.jpg",
   },
   {
     id: 42,
@@ -343,6 +344,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 20,
     notes: "8-pack",
+    image: "hamburger-buns.jpg",
   },
   {
     id: 43,
@@ -350,6 +352,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 18,
     notes: "8-pack",
+    image: "hot-dog-buns.jpg",
   },
   {
     id: 44,
@@ -357,6 +360,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 15,
     notes: "Plain, 6-pack",
+    image: "bagels.jpg",
   },
   {
     id: 45,
@@ -364,6 +368,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 12,
     notes: "6-pack",
+    image: "english-muffins.jpg",
   },
   {
     id: 46,
@@ -371,6 +376,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 25,
     notes: "Flour, 10-count",
+    image: "tortillas.jpg",
   },
   {
     id: 47,
@@ -378,6 +384,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 14,
     notes: "12-pack",
+    image: "dinner-rolls.jpg",
   },
   {
     id: 48,
@@ -385,6 +392,7 @@ export const defaultItems = [
     category: "bakery",
     quantity: 10,
     notes: "Whole wheat, 6-pack",
+    image: "pita-bread.jpg",
   },
 
   // Frozen Foods (8+ items)
@@ -394,6 +402,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 20,
     notes: "Pepperoni, 12 inch",
+    image: "frozen-pizza.jpg",
   },
   {
     id: 50,
@@ -401,6 +410,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 35,
     notes: "Mixed veggies, 16oz",
+    image: "frozen-vegetables.jpg",
   },
   {
     id: 51,
@@ -408,6 +418,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 15,
     notes: "Vanilla, 1.5qt",
+    image: "ice-cream.jpg",
   },
   {
     id: 52,
@@ -415,6 +426,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 22,
     notes: "Crinkle cut, 2lb",
+    image: "frozen-fries.jpg",
   },
   {
     id: 53,
@@ -422,6 +434,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 18,
     notes: "Mixed berries, 12oz",
+    image: "frozen-berries.jpg",
   },
   {
     id: 54,
@@ -429,6 +442,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 16,
     notes: "Homestyle, 10-count",
+    image: "frozen-waffles.jpg",
   },
   {
     id: 55,
@@ -436,6 +450,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 20,
     notes: "Breaded, 2lb",
+    image: "frozen-chicken-nuggets.jpg",
   },
   {
     id: 56,
@@ -443,6 +458,7 @@ export const defaultItems = [
     category: "frozen",
     quantity: 25,
     notes: "Bean & cheese",
+    image: "frozen-burritos.jpg",
   },
 
   // Beverages (8+ items)
@@ -452,6 +468,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 20,
     notes: "100% juice, 64oz",
+    image: "orange-juice.jpg",
   },
   {
     id: 58,
@@ -459,6 +476,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 18,
     notes: "100% juice, 64oz",
+    image: "apple-juice.jpg",
   },
   {
     id: 59,
@@ -466,6 +484,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 15,
     notes: "Ground coffee, 12oz",
+    image: "coffee.jpg",
   },
   {
     id: 60,
@@ -473,6 +492,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 22,
     notes: "Black tea, 100-count",
+    image: "tea.jpg",
   },
   {
     id: 61,
@@ -480,6 +500,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 30,
     notes: "Assorted flavors, 32oz",
+    image: "sports-drinks.jpg",
   },
   {
     id: 62,
@@ -487,6 +508,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 50,
     notes: "24-pack, 16.9oz bottles",
+    image: "water.jpg",
   },
   {
     id: 63,
@@ -494,6 +516,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 25,
     notes: "Cola, 2-liter bottles",
+    image: "cola.jpg",
   },
   {
     id: 64,
@@ -501,6 +524,7 @@ export const defaultItems = [
     category: "beverages",
     quantity: 20,
     notes: "Powder mix, makes 8qt",
+    image: "fruit-punch.jpg",
   },
 
   // Personal Care (8+ items)
@@ -510,6 +534,7 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 30,
     notes: "Fluoride, 6oz tubes",
+    image: "toothpaste.jpg",
   },
   {
     id: 66,
@@ -517,6 +542,7 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 40,
     notes: "Adult soft bristle",
+    image: "toothbrush.jpg",
   },
   {
     id: 67,
@@ -524,6 +550,7 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 22,
     notes: "Family size, 28oz",
+    image: "shampoo.jpg",
   },
   {
     id: 68,
@@ -531,6 +558,7 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 35,
     notes: "3-pack bars",
+    image: "soap-bars.jpg",
   },
   {
     id: 69,
@@ -538,13 +566,15 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 18,
     notes: "Antiperspirant, 2.6oz",
+    image: "deodorant.jpg",
   },
   {
     id: 70,
-    name: "Tissue Paper",
+    name: "Tissues",
     category: "personal-care",
     quantity: 25,
     notes: "Facial tissues, 160-count",
+    image: "tissues.jpg",
   },
   {
     id: 71,
@@ -552,6 +582,7 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 30,
     notes: "12 double rolls",
+    image: "toilet-paper.jpg",
   },
   {
     id: 72,
@@ -559,6 +590,7 @@ export const defaultItems = [
     category: "personal-care",
     quantity: 28,
     notes: "8oz bottles",
+    image: "hand-sanitizer.jpg",
   },
 
   // Household Supplies (8+ items)
@@ -568,6 +600,7 @@ export const defaultItems = [
     category: "household",
     quantity: 20,
     notes: "Liquid, 24oz",
+    image: "dish-soap.jpg",
   },
   {
     id: 74,
@@ -575,6 +608,7 @@ export const defaultItems = [
     category: "household",
     quantity: 15,
     notes: "Liquid, 64oz",
+    image: "laundry-detergent.jpg",
   },
   {
     id: 75,
@@ -582,6 +616,7 @@ export const defaultItems = [
     category: "household",
     quantity: 25,
     notes: "6-pack rolls",
+    image: "paper-towels.jpg",
   },
   {
     id: 76,
@@ -589,6 +624,7 @@ export const defaultItems = [
     category: "household",
     quantity: 18,
     notes: "13 gallon, 40-count",
+    image: "trash-bags.jpg",
   },
   {
     id: 77,
@@ -596,6 +632,7 @@ export const defaultItems = [
     category: "household",
     quantity: 12,
     notes: "75 sq ft roll",
+    image: "aluminum-foil.jpg",
   },
   {
     id: 78,
@@ -603,6 +640,7 @@ export const defaultItems = [
     category: "household",
     quantity: 14,
     notes: "200 sq ft roll",
+    image: "plastic-wrap.jpg",
   },
   {
     id: 79,
@@ -610,6 +648,7 @@ export const defaultItems = [
     category: "household",
     quantity: 30,
     notes: "Scrub sponges, 6-pack",
+    image: "sponges.jpg",
   },
   {
     id: 80,
@@ -617,6 +656,7 @@ export const defaultItems = [
     category: "household",
     quantity: 16,
     notes: "Spray bottle, 32oz",
+    image: "cleaner.jpg",
   },
 
   // Baby Products (8+ items)
@@ -626,6 +666,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 20,
     notes: "Size 3, 32-count",
+    image: "diapers.jpg",
   },
   {
     id: 82,
@@ -633,6 +674,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 25,
     notes: "Unscented, 80-count",
+    image: "baby-wipes.jpg",
   },
   {
     id: 83,
@@ -640,6 +682,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 15,
     notes: "Powder, 12.5oz",
+    image: "formula.jpg",
   },
   {
     id: 84,
@@ -647,6 +690,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 35,
     notes: "Stage 2, assorted",
+    image: "baby-food.jpg",
   },
   {
     id: 85,
@@ -654,6 +698,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 12,
     notes: "Tear-free, 15oz",
+    image: "baby-shampoo.jpg",
   },
   {
     id: 86,
@@ -661,6 +706,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 14,
     notes: "Hypoallergenic, 15oz",
+    image: "baby-lotion.jpg",
   },
   {
     id: 87,
@@ -668,6 +714,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 18,
     notes: "BPA-free, 2-pack",
+    image: "pacifiers.jpg",
   },
   {
     id: 88,
@@ -675,6 +722,7 @@ export const defaultItems = [
     category: "baby",
     quantity: 10,
     notes: "8oz, 3-pack",
+    image: "baby-bottles.jpg",
   },
 
   // Pet Supplies (8+ items)
@@ -684,6 +732,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 20,
     notes: "Dry kibble, 5lb bags",
+    image: "dog-food.jpg",
   },
   {
     id: 90,
@@ -691,6 +740,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 25,
     notes: "Dry kibble, 3lb bags",
+    image: "cat-food.jpg",
   },
   {
     id: 91,
@@ -698,6 +748,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 18,
     notes: "Biscuits, 16oz",
+    image: "dog-treats.jpg",
   },
   {
     id: 92,
@@ -705,6 +756,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 15,
     notes: "Crunchy, 6oz",
+    image: "cat-treats.jpg",
   },
   {
     id: 93,
@@ -712,6 +764,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 12,
     notes: "Clumping, 14lb",
+    image: "cat-litter.jpg",
   },
   {
     id: 94,
@@ -719,6 +772,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 10,
     notes: "For dogs & cats, 16oz",
+    image: "pet-shampoo.jpg",
   },
   {
     id: 95,
@@ -726,6 +780,7 @@ export const defaultItems = [
     category: "pets",
     quantity: 22,
     notes: "Assorted dog/cat toys",
+    image: "pet-toys.jpg",
   },
   {
     id: 96,
@@ -733,5 +788,6 @@ export const defaultItems = [
     category: "pets",
     quantity: 8,
     notes: "Stainless steel, 2-pack",
+    image: "pet-bowls.jpg",
   },
 ];

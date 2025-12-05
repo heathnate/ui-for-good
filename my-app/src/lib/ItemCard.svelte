@@ -5,7 +5,7 @@
   const dispatch = createEventDispatcher()
   
   $: displayCategory = categoryHash[item.category] || item.category
-  $: imagePath = `url("/public/items/${item.image}")` 
+  $: imagePath = `url("/items/${item.image}")` 
 </script>
 
 <article class="card" role="button" tabindex="0" on:click={() => window.location.hash = '#/item/' + item.id}>
