@@ -1,11 +1,12 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import { categoryHash, canEdit } from './stores.js'
+  import { categoryHash, employee } from './stores.js'
   export let item
   const dispatch = createEventDispatcher()
   
   $: displayCategory = categoryHash[item.category] || item.category
   $: imagePath = `url("/items/${item.image}")` 
+  $: canEdit = $employee
 </script>
 
 <article class="card" role="button" tabindex="0">

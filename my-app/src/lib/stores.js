@@ -3,7 +3,7 @@ import { defaultItems } from "./sample-data.js";
 
 const STORAGE_KEY = "pantry_items_v1";
 
-export let canEdit = false;
+export const employee = writable(false);
 
 export const categoryHash = {
   all: "All",
