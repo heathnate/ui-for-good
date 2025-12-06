@@ -12,7 +12,8 @@
   import ItemCard from "./ItemCard.svelte";
   import { onMount } from "svelte";
 
-  let category = "All";
+  let category = "all";
+  let sortBy = "name-asc";
   let query = "";
   // base comes from global filteredItems (header search and category filter applied)
   let base = [];
@@ -27,7 +28,16 @@
     }
   });
 
-  $: filtered = base.filter((i) => true);
+  $: filtered = base
+    .filter((i) => true)
+    .slice()
+    .sort((a, b) => {
+      if (sortBy === "category") return a.category.localeCompare(b.category);
+      if (sortBy === "name-asc") return a.name.localeCompare(b.name);
+      if (sortBy === "qty-asc") return (a.quantity ?? 0) - (b.quantity ?? 0);
+      if (sortBy === "qty-desc") return (b.quantity ?? 0) - (a.quantity ?? 0);
+      return 0;
+    });
 
   $: canEdit = $employee;
 
@@ -78,6 +88,17 @@
           {#each Object.keys(categoryHash) as catKey}
             <option value={catKey}>{categoryHash[catKey]}</option>
           {/each}
+        </select>
+      </label>
+      <label
+        >Sort
+        <select bind:value={sortBy}>
+          <option value="name-asc">Name (A–Z)</option>
+          { #if category === 'all' }
+          <option value="category">Category</option>
+          { /if}
+          <option value="qty-asc">Quantity (Low → High)</option>
+          <option value="qty-desc">Quantity (High → Low)</option>
         </select>
       </label>
     </div>
