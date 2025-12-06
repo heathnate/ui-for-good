@@ -86,6 +86,9 @@
       </div>
 
       <nav class="actions">
+        { #if isEmployee }
+          <button on:click={() => goTo("#/add-item")}>Add Item</button>
+          {/if}
         <button on:click={() => goTo("#/stock")}>View All Stock</button>
         <div class="employee-toggle">
 

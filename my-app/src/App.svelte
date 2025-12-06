@@ -16,8 +16,8 @@
       route = '/item'
       params.id = h.split('/')[2]
       selectedCategory.set('')
-    } else if (h.startsWith('/employee')) {
-      route = '/employee'
+    } else if (h.startsWith('/add-item')) {
+      route = '/add-item'
       params = {}
       selectedCategory.set('')
     } else if (h.startsWith('/stock')) {
@@ -50,7 +50,7 @@
   <main class="container">
     {#if route === '/item'}
       <ItemDetail id={params.id} />
-    {:else if route === '/employee'}
+    {:else if route === '/add-item'}
       <EmployeeView />
     {:else if route === '/stock'}
       <StockPage />
