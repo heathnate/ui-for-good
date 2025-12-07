@@ -1,4 +1,5 @@
 <script>
+  import NewItemForm from "./NewItemForm.svelte";
   import { itemsStore } from "./stores.js";
   import { onMount } from "svelte";
 
@@ -6,6 +7,16 @@
   let showScanInterface = false;
   let showManualForm = false;
   let showScanAnimation = false;
+
+  let mockItem = {
+    name: "Green Beans",
+    category: "canned",
+    quantity: 10,
+    notes: "Low sodium",
+    image: "/items/green-beans.jpg"
+  }
+
+  let scannedItem = null;
 
   let items = [];
   const unsub = itemsStore.subscribe((v) => (items = v));
@@ -46,29 +57,34 @@
   function showManual() {
     showChoices = false;
     showManualForm = true;
+    scannedItem = null;
   }
 
   function backToChoices() {
     showChoices = true;
     showScanInterface = false;
     showManualForm = false;
+    showScanAnimation = false;
+    scannedItem = null;
   }
 
   function scanItem() {
     // Show the scan animation
     showScanAnimation = true;
+    showScanInterface = false;
     
-    // After 4 seconds, navigate back to greeting page
+    // After 4 seconds, show the form with scanned item data
     setTimeout(() => {
       showScanAnimation = false;
-      window.location.hash = '#/';
+      showManualForm = true;
+      scannedItem = { ...mockItem };
     }, 4000);
   }
 
   onMount(() => () => unsub());
 </script>
 
-<h2 class="header">Add Items</h2>
+<h2 class="header">Add Item</h2>
 
 {#if showChoices}
 <div class="initial-choices-container">
@@ -102,46 +118,7 @@
 {/if}
 
 {#if showManualForm}
-<section class="employee">
-  <div class="form">
-    <h2>{editing ? "Edit Item" : "Add Item"}</h2>
-    <label>Name<input bind:value={form.name} /></label>
-    <label>Category<input bind:value={form.category} /></label>
-    <label>Quantity<input type="number" bind:value={form.quantity} /></label>
-    <label>Notes<textarea rows="2" bind:value={form.notes}></textarea></label>
-    <div class="form-actions">
-      <button on:click={save}>{editing ? "Save" : "Add"}</button>
-      <button on:click={startAdd} class="muted">Cancel</button>
-    </div>
-  </div>
-
-  <div class="list">
-    <h2>Current Items</h2>
-    {#if items.length === 0}
-      <div class="empty">No items</div>
-    {/if}
-    <table>
-      <thead><tr><th>Name</th><th>Category</th><th>Qty</th><th></th></tr></thead
-      >
-      <tbody>
-        {#each items as it}
-          <tr>
-            <td>{it.name}</td>
-            <td>{it.category}</td>
-            <td>{it.quantity}</td>
-            <td class="row-actions">
-              <button on:click={() => startEdit(it)}>Edit</button>
-              <button on:click={() => remove(it.id)} class="danger"
-                >Delete</button
-              >
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </div>
-  <button on:click={backToChoices}>Back</button>
-</section>
+  <NewItemForm item={scannedItem || { name: "", category: "", quantity: 0, notes: "", image: "" }} scanned={!!scannedItem} on:back={backToChoices} />
 {/if}
 
 <style>
@@ -241,59 +218,5 @@
     color: #fff;
     font-size: 1.2rem;
     margin: 0;
-  }
-  .employee {
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 1rem;
-  }
-  .form {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  label {
-    display: block;
-    margin-bottom: 0.6rem;
-  }
-  input,
-  textarea {
-    width: 100%;
-    padding: 0.45rem;
-    margin-top: 0.25rem;
-  }
-  .form-actions {
-    margin-top: 0.6rem;
-    display: flex;
-    gap: 0.5rem;
-  }
-  .muted {
-    background: #f3f4f6;
-  }
-  .list {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th,
-  td {
-    text-align: left;
-    padding: 0.6rem;
-    border-bottom: 1px solid #eee;
-  }
-  .row-actions button {
-    margin-left: 0.4rem;
-  }
-  .danger {
-    background: #ffdddd;
-  }
-  @media (max-width: 900px) {
-    .employee {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
