@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { globalSearchQuery, employee, searchFilteredItems, categoryHash } from "./stores.js";
 
   // local input model
@@ -6,6 +7,7 @@
   let showDropdown = false;
   let inputEl;
   let pantryDetailsOpen = false;
+  let searchContainer;
 
   // sync local q with global store
   $: globalSearchQuery.set(q);
@@ -33,6 +35,19 @@
   function toggleEmployeeMode() {
     employee.update((e) => !e);
   }
+
+  function handleClickOutside(event) {
+    if (searchContainer && !searchContainer.contains(event.target)) {
+      showDropdown = false;
+    }
+  }
+
+  onMount(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
 </script>
 
 <header class="nav">
@@ -58,7 +73,7 @@
       {/if}
     </div>
     <div class="right">
-        <div class="search">
+        <div class="search" bind:this={searchContainer}>
         <input
           bind:this={inputEl}
           placeholder="Search items..."
@@ -70,7 +85,6 @@
         {#if showDropdown}
           <ul
             class="search-dropdown"
-            on:mouseleave={() => (showDropdown = false)}
           >
             {#each results as it}
               <li on:mousedown={() => openItem(it.id)}>

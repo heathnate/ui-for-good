@@ -17,6 +17,7 @@
   let inputEl;
   let showDropdown = false;
   let q = "";
+  let searchContainer;
 
   $: localSearchQuery.set(q);
 
@@ -71,10 +72,19 @@
     window.location.hash = "#/stock";
   }
 
+  function handleClickOutside(event) {
+    if (searchContainer && !searchContainer.contains(event.target)) {
+      showDropdown = false;
+    }
+  }
+
   onMount(() => {
+    document.addEventListener('click', handleClickOutside);
+    
     return () => {
       unsubscribe();
       unsubCategory();
+      document.removeEventListener('click', handleClickOutside);
     };
   });
 </script>
@@ -114,7 +124,7 @@
           <option value="qty-desc">Quantity (High → Low)</option>
         </select>
       </label>
-      <div class="search">
+      <div class="search" bind:this={searchContainer}>
         <input
           bind:this={inputEl}
           placeholder="Search within category..."
@@ -126,10 +136,9 @@
         {#if showDropdown}
           <ul
             class="search-dropdown"
-            on:mouseleave={() => (showDropdown = false)}
           >
             {#each results as it}
-              <li>
+              <li on:click={() => handleView({ detail: { item: it } })}>
                 {it.name} <small class="cat">{categoryHash[it.category]}</small>
               </li>
             {/each}
