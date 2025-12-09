@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { itemsStore, categoryHash, items, getNewId } from './stores.js';
+  import { categoryHash, items, getNewId } from './stores.js';
   
   const dispatch = createEventDispatcher();
 

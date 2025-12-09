@@ -1,7 +1,5 @@
 <script>
   import NewItemForm from "./NewItemForm.svelte";
-  import { itemsStore } from "./stores.js";
-  import { onMount } from "svelte";
 
   let showChoices = true;
   let showScanInterface = false;
@@ -17,37 +15,6 @@
   }
 
   let scannedItem = null;
-
-  let items = [];
-  const unsub = itemsStore.subscribe((v) => (items = v));
-
-  let editing = null;
-  let form = { name: "", category: "", quantity: 0, notes: "" };
-
-  function startAdd() {
-    editing = null;
-    form = { name: "", category: "", quantity: 0, notes: "" };
-  }
-
-  function startEdit(item) {
-    editing = item.id;
-    form = { ...item };
-  }
-
-  function save() {
-    if (!form.name.trim()) return alert("Name required");
-    form.quantity = Number(form.quantity) || 0;
-    if (editing) {
-      itemsStore.updateItem({ ...form, id: editing });
-    } else {
-      itemsStore.addItem(form);
-    }
-    startAdd();
-  }
-
-  function remove(id) {
-    if (confirm("Delete item?")) itemsStore.deleteItem(id);
-  }
 
   function showScan() {
     showChoices = false;
@@ -81,7 +48,6 @@
     }, 4000);
   }
 
-  onMount(() => () => unsub());
 </script>
 
 <h2 class="header">Add Item</h2>

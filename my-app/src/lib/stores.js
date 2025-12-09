@@ -60,14 +60,6 @@ function createStore() {
   };
 }
 
-export const itemsStore = createStore();
-
-export const categories = derived(itemsStore, ($items) => {
-  const set = new Set($items.map((i) => i.category).filter(Boolean));
-  console.log("Derived categories:", set);
-  return ["All", ...Array.from(set)];
-});
-
 export const items = writable(defaultItems);
 
 export function getNewId() {

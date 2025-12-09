@@ -1,7 +1,5 @@
 <script>
   import {
-    itemsStore,
-    categories,
     filteredItems,
     selectedCategory,
     selectedCategoryDisplayName,
