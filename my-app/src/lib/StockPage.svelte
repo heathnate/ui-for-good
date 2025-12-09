@@ -48,25 +48,10 @@
 
   $: canEdit = $employee;
 
-  function handleEdit(event) {
+  function handleView(event) {
     const item = event.detail.item;
-    if (canEdit) {
-      // Route to item detail page
-      window.location.hash = `#/item/${item.id}`;
-    } else {
-      alert("Employee edit only: switch to Employee view to edit.");
-    }
-  }
-  
-  function handleDelete(event) {
-    if (canEdit) {
-      const id = event.detail.id;
-      if (confirm("Delete item?")) {
-        items.update((all) => all.filter((it) => it.id !== id));
-      }
-    } else {
-      alert("Employee edit only: switch to Employee view to delete.");
-    }
+    // Route to item detail page
+    window.location.hash = `#/item/${item.id}`;
   }
 
   function handleCategoryChange() {
@@ -164,8 +149,7 @@
     {#each filtered as it (it.id)}
       <ItemCard
         item={it}
-        on:edit={handleEdit}
-        on:delete={handleDelete}
+        on:view={handleView}
       />
     {/each}
   </div>

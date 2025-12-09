@@ -33,7 +33,7 @@
   }
 </script>
 
-<article class="card" role="button" tabindex="0">
+<article class="card" role="button" tabindex="0" on:click={() => dispatch("view", { item })}>
   <div class="card-image" style="background-image: {imagePath}"></div>
   <div class="card-body">
     <h3 class="item-name">{item.name}</h3>
@@ -45,16 +45,6 @@
       <div class="notes">{item.notes}</div>
     {/if}
   </div>
-  {#if canEdit}
-    <div class="card-actions">
-      <button on:click|stopPropagation={() => dispatch("edit", { item })}
-        >Edit</button
-      >
-      <button class="delete" on:click|stopPropagation={() => dispatch("delete", { id: item.id })}
-        >Delete
-      </button>
-    </div>
-  {/if}
 </article>
 
 <style>
@@ -67,6 +57,7 @@
     justify-content: space-between;
     background: #fff;
     color: #111;
+    cursor: pointer;
   }
   .card-image {
     height: 220px;

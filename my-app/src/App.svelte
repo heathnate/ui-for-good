@@ -19,14 +19,6 @@
     accessDenied = false
 
     if (h.startsWith('/item/')) {
-      // Only employees can view/edit item details
-      if (!isEmployee) {
-        accessDenied = true
-        route = '/'
-        selectedCategory.set('')
-        globalSearchQuery.set('')
-        return
-      }
       route = '/item'
       params.id = h.split('/')[2]
       selectedCategory.set('')

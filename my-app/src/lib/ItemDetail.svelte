@@ -9,6 +9,8 @@
   
   // find item by id
   $: item = $items.find((i) => String(i.id) === String(id));
+
+  $: canEdit = $employee;
   
   // Create editable copy
   let editForm = { name: "", category: "", quantity: 0, notes: "", image: "" };
@@ -140,8 +142,10 @@
         <div class="header-row">
           <h2>{item.name}</h2>
           <div class="header-actions">
+            { #if canEdit }
             <button on:click={startEdit} class="edit-btn">Edit Item</button>
             <button on:click={deleteItem} class="delete-btn">Delete</button>
+            { /if }
           </div>
         </div>
 
@@ -183,7 +187,6 @@
         </div>
       </div>
     {:else}
-      <!-- Edit Mode -->
       <div class="edit-mode">
         <h2>Edit Item</h2>
         
@@ -227,7 +230,7 @@
             <div class="image-container">
               {#if previewUrl}
                 <img src={previewUrl} alt="Item preview" class="preview-image" />
-                <button on:click={removeImage} class="remove-btn">Remove</button>
+                <button on:click={removeImage} class="remove-btn">Remove Image</button>
               {:else}
                 <div class="no-image">
                   <p>No image available</p>
