@@ -72,7 +72,9 @@ export function getNewId() {
 }
 
 // Global search query (header search)
-export const searchQuery = writable("");
+export const globalSearchQuery = writable("");
+
+export const localSearchQuery = writable("");
 
 // Global selected category filter
 export const selectedCategory = writable("");
@@ -86,7 +88,7 @@ export const selectedCategoryDisplayName = derived(
 
 // Derived filtered items used across the site (search applies to name, notes, category)
 export const filteredItems = derived(
-  [items, searchQuery, selectedCategory],
+  [items, localSearchQuery, selectedCategory],
   ([$items, $search, $category]) => {
     let filtered = $items;
 
@@ -99,20 +101,20 @@ export const filteredItems = derived(
       );
     }
 
-    // // Then filter by search query
-    // const q = ($search || "").toString().trim().toLowerCase();
-    // if (q) {
-    //   filtered = filtered.filter((i) =>
-    //     (i.name + " " + (i.notes || "")).toLowerCase().includes(q)
-    //   );
-    // }
+    // Then filter by search query
+    const q = ($search || "").toString().trim().toLowerCase();
+    if (q) {
+      filtered = filtered.filter((i) =>
+        (i.name + " " + (i.notes || "")).toLowerCase().includes(q)
+      );
+    }
 
     return filtered;
   }
 );
 
 export const searchFilteredItems = derived(
-  [items, searchQuery],
+  [items, globalSearchQuery],
   ([$items, $search]) => {
     let filtered = $items;
 

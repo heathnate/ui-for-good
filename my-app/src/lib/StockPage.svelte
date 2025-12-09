@@ -3,19 +3,25 @@
     filteredItems,
     selectedCategory,
     selectedCategoryDisplayName,
-    searchQuery,
+    globalSearchQuery,
     categoryHash,
     employee,
-
-    items
-
+    items,
+    localSearchQuery,
   } from "./stores.js";
   import ItemCard from "./ItemCard.svelte";
   import { onMount } from "svelte";
 
   let category = "all";
   let sortBy = "name-asc";
-  let query = "";
+  let inputEl;
+  let showDropdown = false;
+  let q = "";
+
+  $: localSearchQuery.set(q);
+
+  $: results = $filteredItems.slice(0, 6);
+
   // base comes from global filteredItems (header search and category filter applied)
   let base = [];
   const unsubscribe = filteredItems.subscribe((v) => (base = v));
@@ -65,7 +71,7 @@
 
   function clearFilters() {
     selectedCategory.set("");
-    searchQuery.set("");
+    localSearchQuery.set("");
     category = "all";
     window.location.hash = "#/stock";
   }
@@ -81,7 +87,7 @@
 <section class="page-container">
   <div class="header">
     <h2>Stock</h2>
-    {#if $selectedCategory || $searchQuery}
+    {#if $selectedCategory || $localSearchQuery}
       <button on:click={clearFilters} class="clear-btn">Clear filters</button>
     {/if}
   </div>
@@ -113,6 +119,31 @@
           <option value="qty-desc">Quantity (High → Low)</option>
         </select>
       </label>
+      <div class="search">
+        <input
+          bind:this={inputEl}
+          placeholder="Search items..."
+          bind:value={q}
+          on:input={() => (showDropdown = true)}
+          on:focus={() => (showDropdown = true)}
+        />
+
+        {#if showDropdown}
+          <ul
+            class="search-dropdown"
+            on:mouseleave={() => (showDropdown = false)}
+          >
+            {#each results as it}
+              <li>
+                {it.name} <small class="cat">{it.category}</small>
+              </li>
+            {/each}
+            {#if results.length === 0}
+              <li class="empty">No results</li>
+            {/if}
+          </ul>
+        {/if}
+      </div>
     </div>
   </div>
 
@@ -143,7 +174,7 @@
   .clear-btn {
     padding: 0.4rem 0.8rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 6px;
     background: #1f2937;
     cursor: pointer;
   }
@@ -172,6 +203,12 @@
     display: flex;
     gap: 0.75rem;
   }
+  .left {
+    select {
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  }
   label {
     font-size: 0.95rem;
   }
@@ -194,6 +231,46 @@
     padding: 2rem;
     grid-column: 1/-1;
     text-align: center;
+  }
+  .search {
+    position: relative;
+  }
+  .search input {
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    min-width: 220px;
+  }
+  .search-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    left: 0;
+    background: #fff;
+    color: #111;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    z-index: 50;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .search-dropdown li {
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+  }
+  .search-dropdown li:hover {
+    background: #f6f6f6;
+  }
+  .search-dropdown .cat {
+    color: #666;
+    font-size: 0.85em;
+  }
+  .search-dropdown .empty {
+    color: #888;
+    cursor: default;
   }
 
   @media (max-width: 900px) {

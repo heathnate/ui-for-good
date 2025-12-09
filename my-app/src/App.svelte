@@ -5,7 +5,7 @@
   import GreetingPage from './lib/GreetingPage.svelte';
   import EmployeeView from './lib/EmployeeView.svelte'
   import ItemDetail from './lib/ItemDetail.svelte'
-  import { selectedCategory, searchQuery } from './lib/stores.js'
+  import { selectedCategory, globalSearchQuery } from './lib/stores.js'
 
   let route = '/'
   let params = {}
@@ -34,7 +34,7 @@
       route = '/'
       params = {}
       selectedCategory.set('')
-      searchQuery.set('')
+      globalSearchQuery.set('')
     }
   }
 

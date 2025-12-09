@@ -1,5 +1,5 @@
 <script>
-  import { searchQuery, employee, searchFilteredItems } from "./stores.js";
+  import { globalSearchQuery, employee, searchFilteredItems } from "./stores.js";
 
   // local input model
   let q = "";
@@ -8,7 +8,7 @@
   let pantryDetailsOpen = false;
 
   // sync local q with global store
-  $: searchQuery.set(q);
+  $: globalSearchQuery.set(q);
 
   // limited dropdown results
   $: results = $searchFilteredItems.slice(0, 6);
