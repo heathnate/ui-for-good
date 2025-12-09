@@ -96,15 +96,6 @@
           </label>
           <p>Employee View</p>
         </div>
-        
-
-        <!-- {#if isEmployee}
-        <button on:click={toggleEmployeeMode}>Switch to Customer View</button>
-        <p>Employee mode active</p>
-        {:else}
-        <button on:click={toggleEmployeeMode}>Switch to Employee View</button>
-        <p>Customer mode active</p>
-        {/if} -->
       </nav>
 
       
@@ -244,7 +235,6 @@
       transform: translateX(20px);
     }
 
-    /* Rounded sliders */
     .slider.round {
       border-radius: 34px;
     }

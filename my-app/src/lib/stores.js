@@ -21,45 +21,6 @@ export const categoryHash = {
   pets: "Pet Supplies",
 };
 
-function load() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) {
-    console.warn("Failed to load items from localStorage", e);
-  }
-  return defaultItems;
-}
-
-function save(items) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  } catch (e) {
-    console.warn("Failed to save items to localStorage", e);
-  }
-}
-
-function createStore() {
-  const { subscribe, set, update } = writable(load());
-
-  subscribe((items) => save(items));
-
-  return {
-    subscribe,
-    addItem: (item) =>
-      update((list) => {
-        const next = [{ ...item, id: Date.now() }, ...list];
-        return next;
-      }),
-    updateItem: (item) =>
-      update((list) =>
-        list.map((i) => (i.id === item.id ? { ...i, ...item } : i))
-      ),
-    deleteItem: (id) => update((list) => list.filter((i) => i.id !== id)),
-    clear: () => set([]),
-  };
-}
-
 export const items = writable(defaultItems);
 
 export function getNewId() {
