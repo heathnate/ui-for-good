@@ -216,7 +216,7 @@
             
             <label>
               Notes
-              <textarea rows="4" bind:value={editForm.notes}></textarea>
+              <textarea rows="3" bind:value={editForm.notes}></textarea>
             </label>
             
             <div class="form-actions">
@@ -230,7 +230,7 @@
             <div class="image-container">
               {#if previewUrl}
                 <img src={previewUrl} alt="Item preview" class="preview-image" />
-                <button on:click={removeImage} class="remove-btn">Remove Image</button>
+                <button on:click={removeImage} class="remove-btn">Remove</button>
               {:else}
                 <div class="no-image">
                   <p>No image available</p>
@@ -283,14 +283,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
     border-bottom: 2px solid #f0f0f0;
   }
 
   .header-row h2 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.75rem;
     color: #1f2937;
   }
 
@@ -302,26 +302,28 @@
   .content-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .image-section, .details-section {
     background: #fafafa;
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-radius: 8px;
   }
 
   .image-section h3, .details-section h3 {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     color: #1f2937;
+    font-size: 1.1rem;
   }
 
   .image-display {
     border: 2px solid #e5e7eb;
     border-radius: 8px;
-    min-height: 300px;
+    min-height: 220px;
+    max-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -330,7 +332,7 @@
 
   .item-image {
     max-width: 100%;
-    max-height: 300px;
+    max-height: 220px;
     object-fit: contain;
   }
 
@@ -341,7 +343,7 @@
 
   .detail-row {
     display: flex;
-    padding: 0.75rem 0;
+    padding: 0.6rem 0;
     border-bottom: 1px solid #e5e7eb;
   }
 
@@ -352,7 +354,7 @@
   .detail-row .label {
     font-weight: 600;
     color: #4b5563;
-    min-width: 120px;
+    min-width: 100px;
   }
 
   .detail-row .value {
@@ -363,32 +365,33 @@
   .actions-footer {
     display: flex;
     justify-content: flex-start;
-    padding-top: 1rem;
+    padding-top: 0.75rem;
   }
 
   /* Edit Mode Styles */
   .edit-mode {
     background: #fff;
     border-radius: 8px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .edit-mode h2 {
     margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: #1f2937;
+    font-size: 1.75rem;
   }
 
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .form-section label {
     display: block;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     font-weight: 500;
     color: #374151;
   }
@@ -397,12 +400,12 @@
   .form-section textarea,
   .form-section select {
     width: 100%;
-    padding: 0.6rem;
-    margin-top: 0.4rem;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
     border: 1px solid #d1d5db;
     border-radius: 6px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .form-section input:focus,
@@ -416,36 +419,38 @@
   .form-actions {
     display: flex;
     gap: 0.75rem;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
   }
 
   .image-edit-section {
     background: #fafafa;
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-radius: 8px;
   }
 
   .image-edit-section h3 {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     color: #1f2937;
+    font-size: 1.1rem;
   }
 
   .image-container {
     border: 2px dashed #d1d5db;
     border-radius: 8px;
-    min-height: 300px;
+    min-height: 220px;
+    max-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     position: relative;
     background: #fff;
   }
 
   .preview-image {
     max-width: 100%;
-    max-height: 300px;
+    max-height: 220px;
     object-fit: contain;
   }
 
@@ -453,7 +458,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     color: #6b7280;
   }
 
@@ -466,10 +471,10 @@
 
   /* Button Styles */
   button {
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 6px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
@@ -526,7 +531,7 @@
   .upload-btn, .change-btn {
     background: #1f2937;
     color: #fff;
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.9rem;
   }
 
   .upload-btn:hover, .change-btn:hover {

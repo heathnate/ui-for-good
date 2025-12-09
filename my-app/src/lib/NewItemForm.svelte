@@ -116,7 +116,7 @@
     </label>
     
     <label>Quantity<input type="number" bind:value={item.quantity} min="0" /></label>
-    <label>Notes<textarea rows="3" bind:value={item.notes}></textarea></label>
+    <label>Notes<textarea rows="2" bind:value={item.notes}></textarea></label>
     
     <div class="form-actions">
       <button on:click={save} class="primary">Save Item</button>
@@ -129,7 +129,7 @@
     <div class="image-container">
       {#if previewUrl}
         <img src={previewUrl} alt="Item preview" class="preview-image" />
-        <button on:click={removeImage} class="remove-btn">Remove Image</button>
+        <button on:click={removeImage} class="remove-btn">Remove</button>
       {:else}
         <div class="no-image">
           <p>No image available</p>
@@ -149,7 +149,7 @@
       accept="image/*"
       style="display: none;"
     />
-    <p class="hint">Recommended: Images under 1MB for best performance</p>
+    <p class="hint">Recommended: Images under 1MB</p>
   </div>
 </section>
 
@@ -157,14 +157,14 @@
   .form-container {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
   }
   .form, .image-section {
     background: #fff;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 8px;
     width: 100%;
     max-width: 500px;
@@ -172,10 +172,13 @@
   }
   .form h2, .image-section h2 {
     margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
   }
   .info {
     color: #666;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
   }
   .hint {
     color: #888;
@@ -185,21 +188,23 @@
   }
   label {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     font-weight: 500;
+    font-size: 0.95rem;
   }
   input,
   textarea,
   select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.45rem;
     margin-top: 0.25rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-family: inherit;
+    font-size: 0.95rem;
   }
   .form-actions {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     display: flex;
     gap: 0.75rem;
   }
@@ -224,31 +229,32 @@
   .image-container {
     border: 2px dashed #ddd;
     border-radius: 8px;
-    min-height: 300px;
+    min-height: 220px;
+    max-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     position: relative;
     overflow: hidden;
     background: #fafafa;
   }
   .preview-image {
     max-width: 100%;
-    max-height: 300px;
+    max-height: 220px;
     object-fit: contain;
   }
   .no-image {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     color: #666;
   }
   .upload-btn, .change-btn, .remove-btn {
     background: #1f2937;
     color: #fff;
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.9rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
