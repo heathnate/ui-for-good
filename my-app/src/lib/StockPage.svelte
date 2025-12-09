@@ -69,6 +69,16 @@
     }
   }
 
+  function handleCategoryChange() {
+    if (category === "all") {
+      selectedCategory.set("");
+      window.location.hash = "#/stock";
+    } else {
+      selectedCategory.set(category);
+      window.location.hash = `#/stock?category=${encodeURIComponent(category)}`;
+    }
+  }
+
   function clearFilters() {
     selectedCategory.set("");
     localSearchQuery.set("");
@@ -102,7 +112,7 @@
     <div class="left">
       <label
         >Category
-        <select bind:value={category} on:change={() => selectedCategory.set(category)}>
+        <select bind:value={category} on:change={() => handleCategoryChange()}>
           {#each Object.keys(categoryHash) as catKey}
             <option value={catKey}>{categoryHash[catKey]}</option>
           {/each}
