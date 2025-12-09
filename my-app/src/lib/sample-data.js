@@ -1,5 +1,7 @@
+// Starter data
+
 export const defaultItems = [
-  // Produce (8+ items)
+  // Produce (8 items)
   {
     id: 1,
     name: "Apples",
@@ -65,7 +67,7 @@ export const defaultItems = [
     image: "bell-peppers.jpg",
   },
 
-  // Meat (8+ items)
+  // Meat (8 items)
   {
     id: 9,
     name: "Ground Beef",
@@ -131,7 +133,7 @@ export const defaultItems = [
     image: "sausage-links.jpg",
   },
 
-  // Dairy (8+ items)
+  // Dairy (8 items)
   {
     id: 17,
     name: "Milk",
@@ -197,7 +199,7 @@ export const defaultItems = [
     image: "mozzarella.jpg",
   },
 
-  // Canned Goods (8+ items)
+  // Canned Goods (8 items)
   {
     id: 25,
     name: "Canned Beans",
@@ -263,7 +265,7 @@ export const defaultItems = [
     image: "tomato-paste.jpg",
   },
 
-  // Grains & Pasta (8+ items)
+  // Grains & Pasta (8 items)
   {
     id: 33,
     name: "White Rice",
@@ -329,7 +331,7 @@ export const defaultItems = [
     image: "brown-rice.jpg",
   },
 
-  // Bakery (8+ items)
+  // Bakery (8 items)
   {
     id: 41,
     name: "Sandwich Bread",
@@ -395,7 +397,7 @@ export const defaultItems = [
     image: "pita-bread.jpg",
   },
 
-  // Frozen Foods (8+ items)
+  // Frozen Foods (8 items)
   {
     id: 49,
     name: "Frozen Pizza",
@@ -461,7 +463,7 @@ export const defaultItems = [
     image: "frozen-burritos.jpg",
   },
 
-  // Beverages (8+ items)
+  // Beverages (8 items)
   {
     id: 57,
     name: "Orange Juice",
@@ -527,7 +529,7 @@ export const defaultItems = [
     image: "fruit-punch.jpg",
   },
 
-  // Personal Care (8+ items)
+  // Personal Care (8 items)
   {
     id: 65,
     name: "Toothpaste",
@@ -593,7 +595,7 @@ export const defaultItems = [
     image: "hand-sanitizer.jpg",
   },
 
-  // Household Supplies (8+ items)
+  // Household Supplies (8 items)
   {
     id: 73,
     name: "Dish Soap",
@@ -659,7 +661,7 @@ export const defaultItems = [
     image: "cleaner.jpg",
   },
 
-  // Baby Products (8+ items)
+  // Baby Products (8 items)
   {
     id: 81,
     name: "Diapers",
@@ -725,7 +727,7 @@ export const defaultItems = [
     image: "baby-bottles.jpg",
   },
 
-  // Pet Supplies (8+ items)
+  // Pet Supplies (8 items)
   {
     id: 89,
     name: "Dog Food",

@@ -1,20 +1,23 @@
 <script>
-  import { items, categoryHash, employee } from './stores.js';
+  // Page that renders when specifically viewing an individual item
+
+  import { items, categoryHash, employee } from "./stores.js";
   export let id;
 
   let editing = false;
   let fileInput;
   let previewUrl = "";
   let imageData = null;
-  
+
   // find item by id
   $: item = $items.find((i) => String(i.id) === String(id));
 
+  // canEdit flag is based on whether employee view is enabled or not
   $: canEdit = $employee;
-  
+
   // Create editable copy
   let editForm = { name: "", category: "", quantity: 0, notes: "", image: "" };
-  
+
   // Load item data into form when item changes
   $: if (item && !editing) {
     editForm = { ...item };
@@ -26,9 +29,9 @@
       previewUrl = "";
       return;
     }
-    
+
     // Check if it's a custom uploaded image
-    if (imageFile.startsWith('custom_')) {
+    if (imageFile.startsWith("custom_")) {
       const stored = localStorage.getItem(`item_image_${imageFile}`);
       if (stored) {
         previewUrl = stored;
@@ -38,16 +41,20 @@
       }
     } else {
       // Standard image from public folder
-      previewUrl = imageFile.trim().startsWith('/items/') ? imageFile.trim() : `/items/${imageFile.trim()}`;
+      previewUrl = imageFile.trim().startsWith("/items/")
+        ? imageFile.trim()
+        : `/items/${imageFile.trim()}`;
     }
   }
 
+  // Set editing state
   function startEdit() {
     editing = true;
     editForm = { ...item };
     loadItemImage(item.image);
   }
 
+  // Return state to before editing
   function cancelEdit() {
     editing = false;
     editForm = { ...item };
@@ -55,6 +62,7 @@
   }
 
   function saveChanges() {
+    // Validate inputs
     if (!editForm.name.trim()) {
       alert("Name is required");
       return;
@@ -63,23 +71,27 @@
       alert("Please select a category");
       return;
     }
-    
+
+    // Coalesce to be a number
     editForm.quantity = Number(editForm.quantity) || 0;
-    
+
     // Handle image update
     let imageIdentifier = editForm.image;
-    if (imageData && imageData.startsWith('data:')) {
+    if (imageData && imageData.startsWith("data:")) {
+      // Set image file name as current date/time for uniqueness
       imageIdentifier = `custom_${Date.now()}.jpg`;
       try {
+        // Save image to local storage
         localStorage.setItem(`item_image_${imageIdentifier}`, imageData);
       } catch (e) {
-        console.warn('Failed to save image to localStorage:', e);
-        alert('Warning: Image may be too large to save.');
+        console.warn("Failed to save image to localStorage:", e);
+        alert("Warning: Image may be too large to save.");
       }
     }
-    
+
     // Update the item in the store
     items.update((all) => {
+      // Find item and update it
       return all.map((it) => {
         if (String(it.id) === String(id)) {
           return { ...editForm, id: it.id, image: imageIdentifier };
@@ -87,19 +99,20 @@
         return it;
       });
     });
-    
+
     editing = false;
     alert("Item updated successfully!");
   }
 
   function handleFileSelect(event) {
     const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
+      // Validate file size so local storage doesn't get clogged
       if (file.size > 1024 * 1024) {
-        alert('Image is too large. Please choose an image smaller than 1MB.');
+        alert("Image is too large. Please choose an image smaller than 1MB.");
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onload = (e) => {
         imageData = String(e.target.result);
@@ -114,6 +127,7 @@
     fileInput.click();
   }
 
+  // Reset image state
   function removeImage() {
     previewUrl = "";
     imageData = null;
@@ -121,12 +135,15 @@
     if (fileInput) fileInput.value = "";
   }
 
+  // Navigate back to all stock page
   function goBack() {
-    window.location.hash = '#/stock';
+    window.location.hash = "#/stock";
   }
 
   function deleteItem() {
+    // Send confirmation toast
     if (confirm(`Are you sure you want to delete "${item.name}"?`)) {
+      // Filter out deleted item from items store
       items.update((all) => all.filter((it) => String(it.id) !== String(id)));
       alert("Item deleted successfully!");
       goBack();
@@ -137,15 +154,14 @@
 {#if item}
   <section class="detail-container">
     {#if !editing}
-      <!-- View Mode -->
       <div class="view-mode">
         <div class="header-row">
           <h2>{item.name}</h2>
           <div class="header-actions">
-            { #if canEdit }
-            <button on:click={startEdit} class="edit-btn">Edit Item</button>
-            <button on:click={deleteItem} class="delete-btn">Delete</button>
-            { /if }
+            {#if canEdit}
+              <button on:click={startEdit} class="edit-btn">Edit Item</button>
+              <button on:click={deleteItem} class="delete-btn">Delete</button>
+            {/if}
           </div>
         </div>
 
@@ -167,7 +183,9 @@
             <h3>Item Details</h3>
             <div class="detail-row">
               <span class="label">Category:</span>
-              <span class="value">{categoryHash[item.category] || item.category}</span>
+              <span class="value"
+                >{categoryHash[item.category] || item.category}</span
+              >
             </div>
             <div class="detail-row">
               <span class="label">Quantity:</span>
@@ -189,38 +207,40 @@
     {:else}
       <div class="edit-mode">
         <h2>Edit Item</h2>
-        
+
         <div class="form-grid">
           <div class="form-section">
             <label>
               Name
               <input type="text" bind:value={editForm.name} required />
             </label>
-            
+
             <label>
               Category
               <select bind:value={editForm.category}>
                 <option value="">Select a category</option>
                 {#each Object.entries(categoryHash) as [key, value]}
-                  {#if key !== 'all'}
+                  {#if key !== "all"}
                     <option value={key}>{value}</option>
                   {/if}
                 {/each}
               </select>
             </label>
-            
+
             <label>
               Quantity
               <input type="number" bind:value={editForm.quantity} min="0" />
             </label>
-            
+
             <label>
               Notes
               <textarea rows="3" bind:value={editForm.notes}></textarea>
             </label>
-            
+
             <div class="form-actions">
-              <button on:click={saveChanges} class="save-btn">Save Changes</button>
+              <button on:click={saveChanges} class="save-btn"
+                >Save Changes</button
+              >
               <button on:click={cancelEdit} class="cancel-btn">Cancel</button>
             </div>
           </div>
@@ -229,20 +249,29 @@
             <h3>Item Image</h3>
             <div class="image-container">
               {#if previewUrl}
-                <img src={previewUrl} alt="Item preview" class="preview-image" />
-                <button on:click={removeImage} class="remove-btn">Remove</button>
+                <img
+                  src={previewUrl}
+                  alt="Item preview"
+                  class="preview-image"
+                />
+                <button on:click={removeImage} class="remove-btn">Remove</button
+                >
               {:else}
                 <div class="no-image">
                   <p>No image available</p>
-                  <button on:click={triggerFileInput} class="upload-btn">Upload Image</button>
+                  <button on:click={triggerFileInput} class="upload-btn"
+                    >Upload Image</button
+                  >
                 </div>
               {/if}
             </div>
-            
+
             {#if previewUrl}
-              <button on:click={triggerFileInput} class="change-btn">Change Image</button>
+              <button on:click={triggerFileInput} class="change-btn"
+                >Change Image</button
+              >
             {/if}
-            
+
             <input
               type="file"
               bind:this={fileInput}
@@ -306,13 +335,15 @@
     margin-bottom: 1.5rem;
   }
 
-  .image-section, .details-section {
+  .image-section,
+  .details-section {
     background: #fafafa;
     padding: 1.25rem;
     border-radius: 8px;
   }
 
-  .image-section h3, .details-section h3 {
+  .image-section h3,
+  .details-section h3 {
     margin-top: 0;
     margin-bottom: 0.75rem;
     color: #1f2937;
@@ -345,21 +376,21 @@
     display: flex;
     padding: 0.6rem 0;
     border-bottom: 1px solid #e5e7eb;
+
+    .label {
+      font-weight: 600;
+      color: #4b5563;
+      min-width: 100px;
+    }
+
+    .value {
+      color: #1f2937;
+      flex: 1;
+    }
   }
 
   .detail-row:last-child {
     border-bottom: none;
-  }
-
-  .detail-row .label {
-    font-weight: 600;
-    color: #4b5563;
-    min-width: 100px;
-  }
-
-  .detail-row .value {
-    color: #1f2937;
-    flex: 1;
   }
 
   .actions-footer {
@@ -368,32 +399,31 @@
     padding-top: 0.75rem;
   }
 
-  /* Edit Mode Styles */
   .edit-mode {
     background: #fff;
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
 
-  .edit-mode h2 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-    font-size: 1.75rem;
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: #1f2937;
+      font-size: 1.75rem;
+    }
   }
 
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-  }
 
-  .form-section label {
-    display: block;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    color: #374151;
+    label {
+      display: block;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: #374151;
+    }
   }
 
   .form-section input,
@@ -426,13 +456,13 @@
     background: #fafafa;
     padding: 1.25rem;
     border-radius: 8px;
-  }
 
-  .image-edit-section h3 {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    color: #1f2937;
-    font-size: 1.1rem;
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      color: #1f2937;
+      font-size: 1.1rem;
+    }
   }
 
   .image-container {
@@ -469,7 +499,6 @@
     text-align: center;
   }
 
-  /* Button Styles */
   button {
     padding: 0.5rem 1rem;
     border: none;
@@ -528,13 +557,15 @@
     background: #e5e7eb;
   }
 
-  .upload-btn, .change-btn {
+  .upload-btn,
+  .change-btn {
     background: #1f2937;
     color: #fff;
     padding: 0.45rem 0.9rem;
   }
 
-  .upload-btn:hover, .change-btn:hover {
+  .upload-btn:hover,
+  .change-btn:hover {
     background: #ffd166;
     color: #1f2937;
   }
@@ -557,7 +588,6 @@
     background: #b91c1c;
   }
 
-  /* Not Found Styles */
   .not-found {
     max-width: 600px;
     margin: 3rem auto;
@@ -566,19 +596,19 @@
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: #dc2626;
+      margin-top: 0;
+    }
+
+    p {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
   }
 
-  .not-found h2 {
-    color: #dc2626;
-    margin-top: 0;
-  }
-
-  .not-found p {
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Responsive Design */
+  /* Responsive design */
   @media (max-width: 900px) {
     .content-grid,
     .form-grid {

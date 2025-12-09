@@ -1,4 +1,6 @@
 <script>
+  // Card that displays on home page for each category
+
   export let image = '';      // path to image
   export let category = '';   // category display name
   export let route = '';      // route to navigate to on click

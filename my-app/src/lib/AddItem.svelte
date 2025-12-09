@@ -1,4 +1,6 @@
 <script>
+  // Page for adding a new item, either via scanning or manual entry
+
   import NewItemForm from "./NewItemForm.svelte";
 
   let showChoices = true;
@@ -6,13 +8,14 @@
   let showManualForm = false;
   let showScanAnimation = false;
 
+  // Mock item for scanning simulation
   let mockItem = {
     name: "Green Beans",
     category: "canned",
     quantity: 10,
     notes: "Low sodium",
-    image: "/items/green-beans.jpg"
-  }
+    image: "/items/green-beans.jpg",
+  };
 
   let scannedItem = null;
 
@@ -39,52 +42,63 @@
     // Show the scan animation
     showScanAnimation = true;
     showScanInterface = false;
-    
-    // After 4 seconds, show the form with scanned item data
+
+    // After 4 seconds, close the GIF and show the form with scanned item data
     setTimeout(() => {
       showScanAnimation = false;
       showManualForm = true;
       scannedItem = { ...mockItem };
     }, 4000);
   }
-
 </script>
 
 <h2 class="header">Add Item</h2>
 
 {#if showChoices}
-<div class="initial-choices-container">
-  <div class = "initial-choices">
-    <button on:click={showScan}>Scan Item</button>
-    <button on:click={showManual}>Add Item Manually</button>
+  <div class="initial-choices-container">
+    <div class="initial-choices">
+      <button on:click={showScan}>Scan Item</button>
+      <button on:click={showManual}>Add Item Manually</button>
+    </div>
   </div>
-</div>
 {/if}
 
 {#if showScanInterface}
-<div class="scan-menu-container">
-
-  <div class="scan-menu">
-    <h2>Scan Barcode</h2>
-    <p>Note: The concept is that the employee would be able to physically scan the barcode of an item to add it.</p>
-    <p>Right now the scanning is simulated to be a can of green beans.</p>
-    <button on:click={backToChoices}>Back</button>
-    <button on:click={scanItem}>Simulate Scan</button>
+  <div class="scan-menu-container">
+    <div class="scan-menu">
+      <h2>Scan Barcode</h2>
+      <p>
+        Note: The concept is that the employee would be able to physically scan
+        the barcode of an item to add it.
+      </p>
+      <p>Right now the scanning is simulated to be a can of green beans.</p>
+      <button on:click={backToChoices}>Back</button>
+      <button on:click={scanItem}>Simulate Scan</button>
+    </div>
   </div>
-</div>
 {/if}
 
 {#if showScanAnimation}
-<div class="scan-animation-overlay">
-  <div class="animation-container">
-    <img src="/scan-barcode.gif" alt="Scanning barcode..." class="scan-gif" />
-    <p>Scanning...</p>
+  <div class="scan-animation-overlay">
+    <div class="animation-container">
+      <img src="/scan-barcode.gif" alt="Scanning barcode..." class="scan-gif" />
+      <p>Scanning...</p>
+    </div>
   </div>
-</div>
 {/if}
 
 {#if showManualForm}
-  <NewItemForm item={scannedItem || { name: "", category: "", quantity: 0, notes: "", image: "" }} scanned={!!scannedItem} on:back={backToChoices} />
+  <NewItemForm
+    item={scannedItem || {
+      name: "",
+      category: "",
+      quantity: 0,
+      notes: "",
+      image: "",
+    }}
+    scanned={!!scannedItem}
+    on:back={backToChoices}
+  />
 {/if}
 
 <style>
@@ -123,7 +137,6 @@
         color: #1f2937;
       }
     }
-
   }
   .scan-menu-container {
     position: relative;

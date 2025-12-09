@@ -1,20 +1,25 @@
 <script>
-  import { onMount } from 'svelte';
-  import { globalSearchQuery, employee, searchFilteredItems, categoryHash } from "./stores.js";
+  import { onMount } from "svelte";
+  import {
+    globalSearchQuery,
+    employee,
+    searchFilteredItems,
+    categoryHash,
+  } from "./stores.js";
 
-  // local input model
   let q = "";
   let showDropdown = false;
   let inputEl;
   let pantryDetailsOpen = false;
   let searchContainer;
 
-  // sync local q with global store
+  // Sync search query with global store
   $: globalSearchQuery.set(q);
 
-  // limited dropdown results
+  // Limited dropdown results
   $: results = $searchFilteredItems.slice(0, 6);
 
+  // Is employee flag based on employee slider
   $: isEmployee = $employee;
 
   function goTo(route) {
@@ -24,10 +29,12 @@
     showDropdown = false;
   }
 
+  // Route to an item detail
   function openItem(id) {
     goTo("#/item/" + id);
   }
 
+  // Pantry details dropdown toggle
   function togglePantryDetails() {
     pantryDetailsOpen = !pantryDetailsOpen;
   }
@@ -36,16 +43,18 @@
     employee.update((e) => !e);
   }
 
+  // Close dropdown if clicking outside
   function handleClickOutside(event) {
     if (searchContainer && !searchContainer.contains(event.target)) {
       showDropdown = false;
     }
   }
 
+  // attach global listener to close search dropdowns
   onMount(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   });
 </script>
@@ -73,7 +82,7 @@
       {/if}
     </div>
     <div class="right">
-        <div class="search" bind:this={searchContainer}>
+      <div class="search" bind:this={searchContainer}>
         <input
           bind:this={inputEl}
           placeholder="Search items..."
@@ -83,9 +92,7 @@
         />
 
         {#if showDropdown}
-          <ul
-            class="search-dropdown"
-          >
+          <ul class="search-dropdown">
             {#each results as it}
               <li on:mousedown={() => openItem(it.id)}>
                 {it.name} <small class="cat">{categoryHash[it.category]}</small>
@@ -99,20 +106,22 @@
       </div>
 
       <nav class="actions">
-        { #if isEmployee }
+        {#if isEmployee}
           <button on:click={() => goTo("#/add-item")}>Add Item</button>
-          {/if}
+        {/if}
         <button on:click={() => goTo("#/stock")}>View All Stock</button>
         <div class="employee-toggle">
           <label class="switch">
-            <input type="checkbox" bind:checked={isEmployee} on:change={toggleEmployeeMode} />
+            <input
+              type="checkbox"
+              bind:checked={isEmployee}
+              on:change={toggleEmployeeMode}
+            />
             <span class="slider round"></span>
           </label>
           <p>Employee View</p>
         </div>
       </nav>
-
-      
     </div>
   </div>
 </header>
@@ -124,12 +133,14 @@
     padding: 0.5rem 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
+
   .nav-inner {
     margin: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   .left {
     display: flex;
     flex-direction: row;
@@ -138,15 +149,16 @@
     position: relative;
 
     h1 {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
   }
+
   .brand {
     font-size: 1.1rem;
     margin: 0;
     cursor: pointer;
   }
+
   .pantry-name {
     display: flex;
     align-items: center;
@@ -157,16 +169,20 @@
     transition: background 0.2s;
     margin-top: 0.2rem;
   }
+
   .pantry-name:hover {
     background: rgba(255, 255, 255, 0.1);
   }
+
   .arrow {
     font-size: 0.7em;
     transition: transform 0.2s;
   }
+
   .arrow.open {
     transform: rotate(180deg);
   }
+
   .pantry-details {
     position: absolute;
     top: 100%;
@@ -180,24 +196,26 @@
     font-size: 0.9rem;
     line-height: 1.6;
   }
+
   .pantry-details > div:first-child {
     font-weight: 600;
     margin-bottom: 0.4rem;
   }
+
   .actions {
     display: flex;
     align-items: center;
     flex-direction: row;
 
-     .employee-toggle {
-        margin-left: 1.5rem;
-        display: flex;
-        flex-direction: row;
+    .employee-toggle {
+      margin-left: 1.5rem;
+      display: flex;
+      flex-direction: row;
 
-        p {
-          margin-left: 1.8rem;
-        }
-    } 
+      p {
+        margin-left: 1.8rem;
+      }
+    }
 
     .switch {
       position: relative;
@@ -231,16 +249,16 @@
       height: 20px;
       width: 20px;
       background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
     }
 
     input:checked + .slider {
-      background-color: #2196F3;
+      background-color: #2196f3;
     }
 
     input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
+      box-shadow: 0 0 1px #2196f3;
     }
 
     input:checked + .slider:before {
@@ -264,25 +282,30 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 0.45rem 0.8rem;
   }
+
   .actions button:hover {
     color: #111;
     background: #ffd166;
     border-color: #ffd166;
   }
+
   .right {
     display: flex;
     align-items: center;
     gap: 0.6rem;
   }
+
   .search {
     position: relative;
+
+    input {
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      min-width: 220px;
+    }
   }
-  .search input {
-    padding: 0.45rem 0.6rem;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    min-width: 220px;
-  }
+
   .search-dropdown {
     position: absolute;
     top: 110%;
@@ -296,15 +319,17 @@
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-  .search-dropdown li {
-    padding: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-  }
-  .search-dropdown li:hover {
-    background: #f6f6f6;
+
+    li {
+      padding: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    li:hover {
+      background: #f6f6f6;
+    }
   }
   .search-dropdown .cat {
     color: #666;

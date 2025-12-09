@@ -1,39 +1,44 @@
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
-  import { categoryHash, employee } from "./stores.js";
+  import { createEventDispatcher } from "svelte";
+  import { categoryHash } from "./stores.js";
   export let item;
   const dispatch = createEventDispatcher();
 
-  $: displayCategory = categoryHash[item.category] || item.category;
-  $: canEdit = $employee;
-  
+  $: displayCategory = categoryHash[item.category] || item.category; // Use the category name if possible instead of the id string
+
   let imagePath = "";
-  
+
   // Load image (either from public folder or localStorage)
   $: loadItemImage(item.image);
-  
+
   function loadItemImage(imageFile) {
     if (!imageFile) {
-      imagePath = "url('/items/placeholder.jpg')";
       return;
     }
-    
+
     // Check if it's a custom uploaded image
-    if (imageFile.startsWith('custom_')) {
+    if (imageFile.startsWith("custom_")) {
       const stored = localStorage.getItem(`item_image_${imageFile}`);
+
+      // If image is from local storage, use that
       if (stored) {
         imagePath = `url("${stored}")`;
-      } else {
-        imagePath = "url('/items/placeholder.jpg')";
       }
     } else {
       // Standard image from public folder
-      imagePath = imageFile.trim().startsWith('/items/') ? `url("${imageFile.trim()}")` : `url("/items/${imageFile.trim()}")`;
+      imagePath = imageFile.trim().startsWith("/items/")
+        ? `url("${imageFile.trim()}")`
+        : `url("/items/${imageFile.trim()}")`;
     }
   }
 </script>
 
-<article class="card" role="button" tabindex="0" on:click={() => dispatch("view", { item })}>
+<div
+  class="card"
+  role="button"
+  tabindex="0"
+  on:click={() => dispatch("view", { item })}
+>
   <div class="card-image" style="background-image: {imagePath}"></div>
   <div class="card-body">
     <h3 class="item-name">{item.name}</h3>
@@ -45,7 +50,7 @@
       <div class="notes">{item.notes}</div>
     {/if}
   </div>
-</article>
+</div>
 
 <style>
   .card {
@@ -78,27 +83,5 @@
     margin-top: 0.6rem;
     font-size: 0.9rem;
     color: #333;
-  }
-  .card-actions {
-    margin-top: 0.8rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-
-    button {
-      padding: 0.4rem 0.6rem;
-    }
-
-    .delete {
-        background: #b41a1a;
-        color: #fff;
-        border: none;
-      }
-
-    button:hover {
-      background: #ffd166;
-      border-color: #ffd166;
-      color: #000;
-    }
   }
 </style>

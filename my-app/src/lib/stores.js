@@ -1,10 +1,9 @@
 import { writable, derived, get } from "svelte/store";
 import { defaultItems } from "./sample-data.js";
 
-const STORAGE_KEY = "pantry_items_v1";
-
 export const employee = writable(false);
 
+// Map category ids to display names
 export const categoryHash = {
   all: "All",
   produce: "Produce",
@@ -21,9 +20,11 @@ export const categoryHash = {
   pets: "Pet Supplies",
 };
 
-export const items = writable(defaultItems);
+export const items = writable(defaultItems); // Items store
 
+// Get new unique id for new items
 export function getNewId() {
+  // return largest id from data + 1
   const itemsCopy = get(items);
   let maxId = itemsCopy.reduce(
     (max, item) => (item.id > max ? item.id : max),
@@ -32,9 +33,10 @@ export function getNewId() {
   return maxId + 1;
 }
 
-// Global search query (header search)
+// Global search query (nav bar search)
 export const globalSearchQuery = writable("");
 
+// Local search query (stock page search)
 export const localSearchQuery = writable("");
 
 // Global selected category filter
@@ -74,12 +76,13 @@ export const filteredItems = derived(
   }
 );
 
+// Don't filter by category here since this is global (nav bar)
 export const searchFilteredItems = derived(
   [items, globalSearchQuery],
   ([$items, $search]) => {
     let filtered = $items;
 
-    // Then filter by search query
+    // Filter by search query
     const q = ($search || "").toString().trim().toLowerCase();
     if (q) {
       filtered = filtered.filter((i) =>
