@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { itemsStore, categoryHash } from './stores.js';
+  import { itemsStore, categoryHash, items, getNewId } from './stores.js';
   
   const dispatch = createEventDispatcher();
 
@@ -24,7 +24,10 @@
       return;
     }
     item.quantity = Number(item.quantity) || 0;
-    itemsStore.addItem(item);
+    items.update((prev) => {
+      const newItem = { ...item, id: getNewId() };
+      return [...prev, newItem];
+    });
     alert("Item added successfully!");
     dispatch('back');
   }

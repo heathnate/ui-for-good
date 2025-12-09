@@ -1,4 +1,4 @@
-import { writable, derived } from "svelte/store";
+import { writable, derived, get } from "svelte/store";
 import { defaultItems } from "./sample-data.js";
 
 const STORAGE_KEY = "pantry_items_v1";
@@ -69,6 +69,15 @@ export const categories = derived(itemsStore, ($items) => {
 });
 
 export const items = writable(defaultItems);
+
+export function getNewId() {
+  const itemsCopy = get(items);
+  let maxId = itemsCopy.reduce(
+    (max, item) => (item.id > max ? item.id : max),
+    0
+  );
+  return maxId + 1;
+}
 
 // Global search query (header search)
 export const searchQuery = writable("");

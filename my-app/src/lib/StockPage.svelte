@@ -7,7 +7,10 @@
     selectedCategoryDisplayName,
     searchQuery,
     categoryHash,
-    employee
+    employee,
+
+    items
+
   } from "./stores.js";
   import ItemCard from "./ItemCard.svelte";
   import { onMount } from "svelte";
@@ -48,6 +51,17 @@
       window.location.hash = `#/item/${item.id}`;
     } else {
       alert("Employee edit only: switch to Employee view to edit.");
+    }
+  }
+  
+  function handleDelete(event) {
+    if (canEdit) {
+      const id = event.detail.id;
+      if (confirm("Delete item?")) {
+        items.update((all) => all.filter((it) => it.id !== id));
+      }
+    } else {
+      alert("Employee edit only: switch to Employee view to delete.");
     }
   }
 
@@ -112,6 +126,7 @@
       <ItemCard
         item={it}
         on:edit={handleEdit}
+        on:delete={handleDelete}
       />
     {/each}
   </div>

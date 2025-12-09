@@ -26,6 +26,9 @@
       <button on:click|stopPropagation={() => dispatch("edit", { item })}
         >Edit</button
       >
+      <button class="delete" on:click|stopPropagation={() => dispatch("delete", { id: item.id })}
+        >Delete
+      </button>
     </div>
   {/if}
 </article>
@@ -65,10 +68,17 @@
     margin-top: 0.8rem;
     display: flex;
     justify-content: flex-end;
+    gap: 1rem;
 
     button {
       padding: 0.4rem 0.6rem;
     }
+
+    .delete {
+        background: #b41a1a;
+        color: #fff;
+        border: none;
+      }
 
     button:hover {
       background: #ffd166;
