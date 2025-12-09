@@ -90,15 +90,21 @@
           {/if}
         <button on:click={() => goTo("#/stock")}>View All Stock</button>
         <div class="employee-toggle">
+          <label class="switch">
+            <input type="checkbox" bind:checked={isEmployee} on:change={toggleEmployeeMode} />
+            <span class="slider round"></span>
+          </label>
+          <p>Employee View</p>
+        </div>
+        
 
-        {#if isEmployee}
+        <!-- {#if isEmployee}
         <button on:click={toggleEmployeeMode}>Switch to Customer View</button>
         <p>Employee mode active</p>
         {:else}
         <button on:click={toggleEmployeeMode}>Switch to Employee View</button>
         <p>Customer mode active</p>
-        {/if}
-        </div>
+        {/if} -->
       </nav>
 
       
@@ -178,17 +184,73 @@
     align-items: center;
     flex-direction: row;
 
-    .employee-toggle {
-        transform: translateY(16px);
+     .employee-toggle {
+        margin-left: 1.5rem;
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        font-size: 0.85rem;
+        flex-direction: row;
 
         p {
-            margin: 0;
-            margin-bottom: 0.7rem;
+          margin-left: 1.8rem;
         }
+    } 
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      transform: translate(18px, 18px);
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(20px);
+      -ms-transform: translateX(20px);
+      transform: translateX(20px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
     }
   }
   .actions button {

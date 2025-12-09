@@ -132,7 +132,7 @@
       <div class="search">
         <input
           bind:this={inputEl}
-          placeholder="Search items..."
+          placeholder="Search within category..."
           bind:value={q}
           on:input={() => (showDropdown = true)}
           on:focus={() => (showDropdown = true)}
