@@ -1,5 +1,5 @@
 <script>
-  import { globalSearchQuery, employee, searchFilteredItems } from "./stores.js";
+  import { globalSearchQuery, employee, searchFilteredItems, categoryHash } from "./stores.js";
 
   // local input model
   let q = "";
@@ -74,7 +74,7 @@
           >
             {#each results as it}
               <li on:mousedown={() => openItem(it.id)}>
-                {it.name} <small class="cat">{it.category}</small>
+                {it.name} <small class="cat">{categoryHash[it.category]}</small>
               </li>
             {/each}
             {#if results.length === 0}

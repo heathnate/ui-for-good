@@ -145,7 +145,7 @@
           >
             {#each results as it}
               <li>
-                {it.name} <small class="cat">{it.category}</small>
+                {it.name} <small class="cat">{categoryHash[it.category]}</small>
               </li>
             {/each}
             {#if results.length === 0}
