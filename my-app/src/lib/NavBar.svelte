@@ -1,5 +1,5 @@
 <script>
-  import { searchQuery, filteredItems, employee } from "./stores.js";
+  import { searchQuery, employee, searchFilteredItems } from "./stores.js";
 
   // local input model
   let q = "";
@@ -11,7 +11,7 @@
   $: searchQuery.set(q);
 
   // limited dropdown results
-  $: results = $filteredItems.slice(0, 6);
+  $: results = $searchFilteredItems.slice(0, 6);
 
   $: isEmployee = $employee;
 
@@ -65,7 +65,6 @@
           bind:value={q}
           on:input={() => (showDropdown = true)}
           on:focus={() => (showDropdown = true)}
-          aria-label="Search items"
         />
 
         {#if showDropdown}

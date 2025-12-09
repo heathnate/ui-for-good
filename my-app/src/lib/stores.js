@@ -99,6 +99,23 @@ export const filteredItems = derived(
       );
     }
 
+    // // Then filter by search query
+    // const q = ($search || "").toString().trim().toLowerCase();
+    // if (q) {
+    //   filtered = filtered.filter((i) =>
+    //     (i.name + " " + (i.notes || "")).toLowerCase().includes(q)
+    //   );
+    // }
+
+    return filtered;
+  }
+);
+
+export const searchFilteredItems = derived(
+  [items, searchQuery],
+  ([$items, $search]) => {
+    let filtered = $items;
+
     // Then filter by search query
     const q = ($search || "").toString().trim().toLowerCase();
     if (q) {
