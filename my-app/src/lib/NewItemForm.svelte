@@ -15,19 +15,44 @@
 
   let fileInput;
   let previewUrl = item.image ?? "";
-
-  console.log('Initial item image:', item.image, previewUrl);
+  let imageData = null; // Store base64 image data
 
   function save() {
     if (!item.name.trim()) {
       alert("Name is required");
       return;
     }
+    if (!item.category) {
+      alert("Please select a category");
+      return;
+    }
+    
     item.quantity = Number(item.quantity) || 0;
+
+    console.log(item);
+    
+    // Generate unique image identifier if we have new image data
+    let imageIdentifier = item.image;
+    if (imageData && imageData.startsWith('data:')) {
+      imageIdentifier = `custom_${Date.now()}.jpg`;
+      // Save image to localStorage
+      try {
+        localStorage.setItem(`item_image_${imageIdentifier}`, imageData);
+      } catch (e) {
+        console.warn('Failed to save image to localStorage (might be too large):', e);
+        alert('Warning: Image may be too large to save. Consider using a smaller image.');
+      }
+    }
+    
     items.update((prev) => {
-      const newItem = { ...item, id: getNewId() };
+      const newItem = { 
+        ...item, 
+        id: getNewId(),
+        image: imageIdentifier
+      };
       return [...prev, newItem];
     });
+    
     alert("Item added successfully!");
     dispatch('back');
   }
@@ -39,9 +64,16 @@
   function handleFileSelect(event) {
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
+      // Check file size (limit to 1MB for localStorage)
+      if (file.size > 1024 * 1024) {
+        alert('Image is too large. Please choose an image smaller than 1MB.');
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onload = (e) => {
-        previewUrl = String(e.target.result);
+        imageData = String(e.target.result);
+        previewUrl = imageData;
         item.image = file.name;
       };
       reader.readAsDataURL(file);
@@ -54,6 +86,7 @@
 
   function removeImage() {
     previewUrl = "";
+    imageData = null;
     item.image = "";
     if (fileInput) fileInput.value = "";
   }
@@ -116,6 +149,7 @@
       accept="image/*"
       style="display: none;"
     />
+    <p class="hint">Recommended: Images under 1MB for best performance</p>
   </div>
 </section>
 
@@ -142,6 +176,12 @@
   .info {
     color: #666;
     margin-bottom: 1.5rem;
+  }
+  .hint {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
   }
   label {
     display: block;
@@ -191,6 +231,7 @@
     margin-bottom: 1rem;
     position: relative;
     overflow: hidden;
+    background: #fafafa;
   }
   .preview-image {
     max-width: 100%;

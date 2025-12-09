@@ -1,12 +1,36 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import { categoryHash, employee } from "./stores.js";
   export let item;
   const dispatch = createEventDispatcher();
 
   $: displayCategory = categoryHash[item.category] || item.category;
-  $: imagePath = `url("/items/${item.image}")`;
   $: canEdit = $employee;
+  
+  let imagePath = "";
+  
+  // Load image (either from public folder or localStorage)
+  $: loadItemImage(item.image);
+  
+  function loadItemImage(imageFile) {
+    if (!imageFile) {
+      imagePath = "url('/items/placeholder.jpg')";
+      return;
+    }
+    
+    // Check if it's a custom uploaded image
+    if (imageFile.startsWith('custom_')) {
+      const stored = localStorage.getItem(`item_image_${imageFile}`);
+      if (stored) {
+        imagePath = `url("${stored}")`;
+      } else {
+        imagePath = "url('/items/placeholder.jpg')";
+      }
+    } else {
+      // Standard image from public folder
+      imagePath = imageFile.trim().startsWith('/items/') ? `url("${imageFile.trim()}")` : `url("/items/${imageFile.trim()}")`;
+    }
+  }
 </script>
 
 <article class="card" role="button" tabindex="0">
